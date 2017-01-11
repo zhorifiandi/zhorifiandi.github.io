@@ -3082,7 +3082,7 @@
 	}
 
 		.wrapper.style2 {
-			background: #e44c65;
+			background: #000114;
 		}
 
 			.wrapper.style2 input[type="text"]:focus,
@@ -3332,7 +3332,7 @@
 
 	#banner {
 		background-attachment: fixed;
-		background-color: #272833;
+		/* background-color: #272833; */
 		background-image: url("../../images/banner.jpg");
 		background-position: center center;
 		background-size: cover;
@@ -3351,11 +3351,11 @@
 			width: 1%;
 		}
 
-		#banner:after {
+		#banner:after {/*
 			background-image: -moz-linear-gradient(top, rgba(23, 24, 32, 0.95), rgba(23, 24, 32, 0.95)), url("images/overlay.png");;
 			background-image: -webkit-linear-gradient(top, rgba(23, 24, 32, 0.95), rgba(23, 24, 32, 0.95)), url("images/overlay.png");;
 			background-image: -ms-linear-gradient(top, rgba(23, 24, 32, 0.95), rgba(23, 24, 32, 0.95)), url("images/overlay.png");;
-			background-image: linear-gradient(top, rgba(23, 24, 32, 0.95), rgba(23, 24, 32, 0.95)), url("images/overlay.png");;
+			background-image: linear-gradient(top, rgba(23, 24, 32, 0.95), rgba(23, 24, 32, 0.95)), url("images/overlay.png");;*/
 			content: '';
 			display: block;
 			height: 100%;
