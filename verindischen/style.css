@@ -12,7 +12,6 @@
 
 body{
 	overflow-x:hidden;
-	font-family:"Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif
 }
 
 header{
@@ -27,24 +26,25 @@ header{
 }
 
 header .intro-text{
-	padding-top:100px;
+	padding-top:50px;
 	padding-bottom:50px
 }
 
 header .intro-text .intro-lead-in{
 	font-family:himalaya;
-	font-size:22px;line-height:22px;margin-bottom:25px}header .intro-text .intro-heading{
+	line-height:22px;margin-bottom:25px}header .intro-text .intro-heading{
 		font-family:himalaya;
-		font-size:18pt;margin-bottom:25px
+		text-transform:uppercase;
+		font-size:13.5pt;margin-bottom:25px
 }
 
 @media (min-width:768px){
 	header .intro-text{
-		padding-top:300px;padding-bottom:200px
+		padding-top:200px;padding-bottom:200px
 	}
 	header .intro-text .intro-lead-in{
 		font-family:himalaya;
-		font-size:18pt;
+		font-size:13.5pt;
 		line-height:auto;
 	}
 	header .intro-text .intro-heading{
@@ -52,6 +52,26 @@ header .intro-text .intro-lead-in{
 		text-transform:uppercase;font-weight:700;font-size:75px;line-height:75px;margin-bottom:50px
 	}
 }
+
+.button-home {
+	color:#6f6f6f;
+	background-color:#fdde6a;
+	border-color:#fdde6a;
+	font-family:himalaya;
+	font-style: normal;
+	font-size: 14pt;
+	padding: 15px;
+}
+
+.btn-primary{color:#fff;background-color:#858585;border-color:#858585;font-family:Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;text-transform:uppercase;font-weight:700}
+
+.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary{color:#fff;background-color:#858585;border-color:#909090}
+
+.btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary{background-image:none}
+
+.btn-primary.disabled,.btn-primary[disabled],fieldset[disabled] .btn-primary,.btn-primary.disabled:hover,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary:hover,.btn-primary.disabled:focus,.btn-primary[disabled]:focus,fieldset[disabled] .btn-primary:focus,.btn-primary.disabled:active,.btn-primary[disabled]:active,fieldset[disabled] .btn-primary:active,.btn-primary.disabled.active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary.active{background-color:#858585;border-color:#858585}
+
+.btn-primary .badge{color:#858585;background-color:#fff}
 
 /*
 
