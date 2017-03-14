@@ -119,6 +119,51 @@ header .intro-text .intro-lead-in{
 	padding: 0 15% 0 15%;
 }
 
+@media (max-width:1200px){
+	.nav-parent {
+		background-color: #fdde6a;
+	}
+
+	.nav-container {
+		list-style-type: none;
+	    margin: 0;
+	    padding: 0;
+	    font-family: himalaya;
+	    font-size: 10pt;
+	    overflow: hidden;
+	    background-color: #fdde6a;
+	}
+
+	.nav-container > li {
+	    float: left;
+	    height: auto;
+	    width: 10%;
+	    margin: 10px;
+	}
+
+	.nav-container > li a {
+		color:#6f6f6f;
+	    display: block;
+	    text-align: center;
+	    padding: 15px;
+	    text-decoration: none;
+	}
+
+	.nav-container > li a:hover {
+	    color: white;
+	}
+
+	.nav-container > li > a {
+		color:#6f6f6f;
+	}
+
+	.content {
+		padding: 0 15% 0 15%;
+	}
+
+}
+
+
 /*
 
 .text-muted{color:#777}
