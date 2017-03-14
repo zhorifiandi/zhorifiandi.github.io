@@ -115,6 +115,10 @@ header .intro-text .intro-lead-in{
 	color:#6f6f6f;
 }
 
+.content {
+	padding: 0 15% 0 15%;
+}
+
 /*
 
 .text-muted{color:#777}
