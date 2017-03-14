@@ -40,7 +40,7 @@ header .intro-text .intro-lead-in{
 
 @media (min-width:768px){
 	header .intro-text{
-		padding-top:200px;padding-bottom:200px
+		padding-top:155px;padding-bottom:155px
 	}
 	header .intro-text .intro-lead-in{
 		font-family:himalaya;
@@ -54,13 +54,18 @@ header .intro-text .intro-lead-in{
 }
 
 .button-home {
+	text-decoration: none;
 	color:#6f6f6f;
 	background-color:#fdde6a;
 	border-color:#fdde6a;
 	font-family:himalaya;
 	font-style: normal;
-	font-size: 14pt;
+	font-size: 18pt;
 	padding: 15px;
+}
+
+.button-home :hover {
+	color: white;
 }
 
 .btn-primary{color:#fff;background-color:#858585;border-color:#858585;font-family:Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;text-transform:uppercase;font-weight:700}
@@ -72,6 +77,43 @@ header .intro-text .intro-lead-in{
 .btn-primary.disabled,.btn-primary[disabled],fieldset[disabled] .btn-primary,.btn-primary.disabled:hover,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary:hover,.btn-primary.disabled:focus,.btn-primary[disabled]:focus,fieldset[disabled] .btn-primary:focus,.btn-primary.disabled:active,.btn-primary[disabled]:active,fieldset[disabled] .btn-primary:active,.btn-primary.disabled.active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary.active{background-color:#858585;border-color:#858585}
 
 .btn-primary .badge{color:#858585;background-color:#fff}
+
+.nav-parent {
+	padding: 0 15% 0 15%;
+	background-color: #fdde6a;
+}
+
+.nav-container {
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-family: himalaya;
+    font-size: 20pt;
+    overflow: hidden;
+    background-color: #fdde6a;
+}
+
+.nav-container > li {
+    float: left;
+    height: auto;
+    width: 20%;
+}
+
+.nav-container > li a {
+	color:#6f6f6f;
+    display: block;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+}
+
+.nav-container > li a:hover {
+    color: white;
+}
+
+.nav-container > li > a {
+	color:#6f6f6f;
+}
 
 /*
 
