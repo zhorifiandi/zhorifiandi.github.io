@@ -53,4 +53,30 @@ $(document).ready(function(){
 //        $("#div2").fadeIn("slow");
 //        $("#div3").fadeIn(3000);
     });
+	
+	$("#spotlight-btn").click(function(){
+		if (!$("#spotlight-btn").hasClass("title-selected")){
+			
+			$("#news-btn").removeClass("title-selected");
+			$("#news").fadeOut("slow");
+			$("#spotlight-btn").addClass("title-selected");
+			$("#spotlight").fadeIn("slow");
+		}
+//        $("#div1").fadeIn();
+//        $("#div2").fadeIn("slow");
+//        $("#div3").fadeIn(3000);
+    });
+	
+	$("#news-btn").click(function(){
+		if (!$("#news-btn").hasClass("title-selected")){
+			
+			$("#spotlight-btn").removeClass("title-selected");
+			$("#spotlight").fadeOut("slow");
+			$("#news-btn").addClass("title-selected");
+			$("#news").fadeIn("slow");
+		}
+//        $("#div1").fadeIn();
+//        $("#div2").fadeIn("slow");
+//        $("#div3").fadeIn(3000);
+    });
 });
