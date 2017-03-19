@@ -402,6 +402,7 @@ header .intro-text .intro-lead-in{
     font-size: 24pt;
     display: inline-block;
     margin-right: 3px;
+	cursor: pointer;
 }
 
 .title > h1 a{
