@@ -247,6 +247,9 @@ header .intro-text .intro-lead-in{
 	.logo-setter{
 		width: 60%;
 	}
+	.button-home{
+		font-size: 14pt;
+	}
 }
 
 @media (max-width: 720px){
@@ -262,6 +265,9 @@ header .intro-text .intro-lead-in{
 	.logo-setter{
 		width: 60%;
 	}
+	.button-home{
+		font-size: 12pt;
+	}
 }
 
 @media (max-width: 520px){
@@ -276,6 +282,9 @@ header .intro-text .intro-lead-in{
 	}
 	.logo-setter{
 		width: 70%;
+	}
+	.button-home{
+		font-size: 10pt;
 	}
 }
 
