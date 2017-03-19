@@ -230,8 +230,9 @@ header .intro-text .intro-lead-in{
 		background-color: #fdde6a;
 	}
 	.logo-setter{
-	width: 50%;
-}
+		width: 50%;
+	}
+	
 }
 
 @media (max-width: 1200px){
@@ -267,6 +268,13 @@ header .intro-text .intro-lead-in{
 	}
 	.button-home{
 		font-size: 12pt;
+	}
+	.nav-parent {
+		padding: 0;
+	}
+
+	.nav-parent-index {
+		padding: 0;
 	}
 }
 
