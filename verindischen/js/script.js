@@ -80,3 +80,11 @@ $(document).ready(function(){
 //        $("#div3").fadeIn(3000);
     });
 });
+
+$(function() {
+    $('.carousel').each(function(){
+        $(this).carousel({
+            interval: false
+        });
+    });
+});
