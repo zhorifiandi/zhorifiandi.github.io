@@ -10,6 +10,10 @@
     src: url(fonts/himalaya.ttf);
 }
 
+body{
+	overflow-x:hidden;
+}
+
 /* Banner */
 
 	#banner {
@@ -100,9 +104,7 @@
 	}
 
 
-body{
-	overflow-x:hidden;
-}
+
 
 /*
 header{
@@ -305,6 +307,7 @@ header .intro-text .intro-lead-in{
 .body-element {
 	margin-top: 30pt;
 	margin-bottom: 44pt;
+	min-height: 150px;
 }
 
 .body-element > h1 {
