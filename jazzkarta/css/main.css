@@ -1,0 +1,96 @@
+.banner {
+  background: url("../img/bg.jpg");
+  background-size: cover;
+  margin-bottom: 50px;
+}
+
+.banner-left {
+  background: #454545;
+  min-height: 200px;
+  color: white;
+  text-align: center;
+  padding-top: 40px;
+  opacity: 0.8;
+}
+
+.my-navbar{
+  background: #454545;
+  height: 70px;
+  opacity: 0.8;
+}
+
+.my-row {
+    margin-bottom: 30px;
+}
+
+.my-tab {
+  display: inline-block;
+  color: white;
+  background: #454545;
+  text-align: center;
+  padding-top: 3%;
+  height: 100%;
+  font-size: 14pt;
+}
+
+body {
+  background: #eee;
+}
+
+
+
+
+@media screen and (max-width:1300px) {
+    .my-tab {
+        font-size: 10pt;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .my-navbar{
+      padding-left: 10px;
+    }
+    .my-tab {
+        font-size: 9pt;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .my-navbar{
+      padding-left: 10px;
+    }
+    .my-tab {
+        font-size: 7pt;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .my-navbar{
+      padding-left: 10px;
+    }
+    .my-tab {
+        font-size: 6pt;
+    }
+}
+/*
+@media screen and (max-width: 1200px) {
+    .my-navbar{
+      padding-left: 10px;
+    }
+    .my-tab {
+        font-size: 10pt;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .my-navbar{
+      padding-left: 10px;
+    }
+    .my-tab {
+        font-size: 13pt;
+    }
+}*/
+
+.my-tab:hover {
+  background: #111111;
+}
