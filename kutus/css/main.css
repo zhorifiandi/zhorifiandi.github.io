@@ -2420,6 +2420,17 @@ body.mobile-nav-active #mobile-nav-toggle {
 .menu-area {
   background: url(../img/menu-bg.jpg) center;
   background-size: cover;
+  text-align: center;
+}
+
+.blog-area {
+  background: url(../img/menu-bg.jpg) center;
+  background-size: cover;
+  text-align: center;
+}
+
+.menu-area  .title-div {
+  padding-top: 10px;
 }
 
 .single-menu {
@@ -2448,6 +2459,20 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 30px;
   width: 100%;
 }
+
+.why-area {
+  /* background-color: #374946;
+  color: #fff; */
+  text-align: center;
+}
+
+.why-area .img{
+  margin: 20px;
+}
+
+/* .why-area h1, .why-area h4 {
+  color: #fff;
+} */
 
 .review-area {
   background-color: #374946;
