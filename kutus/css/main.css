@@ -2788,7 +2788,20 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .floating-whatsapp{
   position: fixed;
-  bottom: 15px;
-  right: 15px;
+  bottom: 0;
+  right: 5px;
   z-index: 10;
+}
+
+.floating-chat-box{
+  width: 20%;
+  min-width: 200px;
+  position: fixed;
+  bottom: 60px;
+  right: 0;
+  z-index: 10;
+}
+
+#products .single-blog:hover{
+  background: #f2f2f2;
 }
