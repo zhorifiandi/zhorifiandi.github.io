@@ -2283,7 +2283,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .banner-area {
-  background: url(../img/header-bg.jpg) no-repeat center center fixed;
+  background: url(../img/bg-new2.jpg) no-repeat center center fixed;
+  /* background: url(../img/header-bg.jpg) no-repeat center center fixed; */
   background-size: cover;
 }
 
@@ -2295,7 +2296,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 @media (max-width: 768px) {
   .banner-area {
-    background: url(../img/header-bg.jpg) center;
+    background: url(../img/bg-new2.jpg) center;
+    /* background: url(../img/header-bg.jpg) center; */
   }
 }
 
