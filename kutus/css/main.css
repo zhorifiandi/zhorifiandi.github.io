@@ -2872,3 +2872,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: grey;
   width: 100%;
 }
+
+.justify-content-end {
+  font-size: 12pt;
+}
