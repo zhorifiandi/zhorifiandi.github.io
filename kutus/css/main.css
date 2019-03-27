@@ -1034,6 +1034,30 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid transparent;
 }
 
+.genric-btn.biseka {
+  color: #fff;
+  background: #374946;
+  border: 1px solid transparent;
+}
+
+.genric-btn.biseka:hover {
+  color: #374946;
+  border: 1px solid #374946;
+  background: #fff;
+}
+
+.genric-btn.biseka-border {
+  color: #374946;
+  border: 1px solid #374946;
+  background: #fff;
+}
+
+.genric-btn.biseka-border:hover {
+  color: #fff;
+  background: #374946;
+  border: 1px solid transparent;
+}
+
 .genric-btn.link {
   color: #222222;
   background: #f9f9ff;
