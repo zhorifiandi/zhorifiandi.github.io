@@ -1,6 +1,7 @@
 // Set the date we're counting down to
 var countDownDate = new Date();
-countDownDate.setDate(countDownDate.getDate() + 6);
+var randDay = Math.floor(Math.random() * 6);
+countDownDate.setDate(countDownDate.getDate() + randDay);
 
 function addZero(i) {
   if (i < 10) {
