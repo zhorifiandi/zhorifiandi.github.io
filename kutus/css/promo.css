@@ -5,14 +5,26 @@ body {
   font-family: "Montserrat"
 }
 
+p {
+  font-size: 16pt;
+}
+
 strong {
   color: #d3b078
 }
 
 h1 {
   font-family: "Lobster";
+  font-size: 70pt;
+  color: #d3b078;
+  text-shadow: 6px 6px 6px #3d2c25;
+}
+
+h2 {
+  font-family: "Lobster";
   font-size: 40pt;
   color: #d3b078;
+  text-shadow: 6px 6px 6px #3d2c25;
 }
 
 a {
@@ -73,6 +85,12 @@ ul {
   margin: 5px;
 }
 
+.khasiat-box {
+  background: #51562e;
+  padding: 25px;
+  margin: 5px;
+}
+
 .item-box:hover {
   background: #3e4223;
 }
@@ -81,8 +99,5 @@ ul {
   body {
     padding-left: 10px;
     padding-right: 10px;
-  }
-  .container {
-    padding: 0;
   }
 }
