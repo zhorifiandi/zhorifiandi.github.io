@@ -1,0 +1,119 @@
+@font-face {
+    font-family: 'edoregular';
+    src: url('../fonts/edo-webfont.woff2') format('woff2'),
+         url('../fonts/edo-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+  background: #fff;
+  padding: 50px;
+}
+
+p {
+  font-size: 16pt;
+}
+
+h2 strong {
+  color: #000;
+  text-shadow: 5px 5px 5px rgb(172,229,223);
+}
+
+.box-video {
+  /* background: #eeeeee; */
+  background: rgb(172,229,223);
+  padding: 10px;
+  margin-bottom: 50px;
+}
+
+h2 {
+  font-family: "edoregular";
+  font-size: 35pt;
+  color: #000;
+  margin-bottom: 50px;
+}
+
+h3 {
+  font-family: "edoregular";
+  font-size: 20pt;
+  color: #000;
+}
+
+a {
+  color: #d3b078;
+  font-weight: 700;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+}
+
+.image-kutus {
+  max-width: 600px;
+  width: 100%;
+}
+
+.image-info {
+  height: 200px;
+  width: auto;
+  max-width: 220px;
+}
+
+.time-box {
+  font-size: 5vw;
+  background: rgb(172,229,223);
+  color: #000;
+  border-radius: 10px;
+  padding: 1vw;
+}
+
+#myCarousel {
+  margin-bottom: 50px;
+}
+
+.btn-warning {
+  background: #d3b078;
+  color: #3d2c25;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* font-size: 4vw; */
+}
+
+.btn-warning:hover {
+  background: #3d2c25;
+  color: #d3b078;
+}
+
+.item-box-parent {
+  padding: 0;
+}
+
+.item-box {
+  background: #51562e;
+  padding: 25px;
+  margin: 5px;
+}
+
+.khasiat-box {
+  background: #51562e;
+  padding: 25px;
+  margin: 5px;
+}
+
+.item-box:hover {
+  background: #3e4223;
+}
+
+@media (max-width: 400px) {
+  body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
