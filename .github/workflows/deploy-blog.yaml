@@ -32,7 +32,7 @@ jobs:
           FILTER_PROP: status
           FILTER_VALUES: Public
           CONVERT_PROP_CASE: snake
-          ARTICLE_PATH: _posts/{category}/{title}/README.md
+          ARTICLE_PATH: blogs/{category}/{title}/README.md
           ASSETS_PATH: ./
           PARALLEL_PAGES: 25
           PARALLEL_DOWNLOADS_PER_PAGE: 3
