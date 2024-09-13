@@ -32,7 +32,7 @@ jobs:
           FILTER_PROP: status
           FILTER_VALUES: Public
           CONVERT_PROP_CASE: kebab
-          ARTICLE_PATH: _pages/{category}/{title}/index.md
+          ARTICLE_PATH: _posts/{date}/{category}/{title}/index.md
           ASSETS_PATH: ./
           PARALLEL_PAGES: 25
           PARALLEL_DOWNLOADS_PER_PAGE: 3
