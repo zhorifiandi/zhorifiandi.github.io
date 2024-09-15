@@ -1,4 +1,4 @@
-# Avoid Manual Reconciliation, Solve Stuck Systems Flow using Saga Pattern
+---
 
 Ready: Yes
 Categories: software-architecture
@@ -6,6 +6,8 @@ Tags: Reliability, Saga Pattern
 mermaid: true
 
 ---
+
+# Avoid Manual Reconciliation, Solve Stuck Systems Flow using Saga Pattern
 
 # Pain Point: Stuck Systems Flow
 
