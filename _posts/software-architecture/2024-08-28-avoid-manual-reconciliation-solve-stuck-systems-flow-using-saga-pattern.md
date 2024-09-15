@@ -6,6 +6,8 @@ tags:
     - Reliability
     - Saga Pattern
 mermaid: true
+cover-img: "/docs/2024-08-28-avoid-manual-reconciliation-solve-stuck-systems-flow-using-saga-pattern/image%203.png"
+thumbnail-img: "/docs/2024-08-28-avoid-manual-reconciliation-solve-stuck-systems-flow-using-saga-pattern/image%203.png"
 ---
 
 # Pain Point: Stuck Systems Flow
