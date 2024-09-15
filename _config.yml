@@ -38,3 +38,5 @@ defaults:
       type: post
     values:
       tags: Misc
+
+google_analytics: G-G4J0ZH9VY0
