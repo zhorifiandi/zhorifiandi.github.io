@@ -193,7 +193,7 @@ For example, if a refund fails after an order delivery error, the saga will retr
 
 It’s recommended to draw a state diagram, so you can understand the whole transaction from high level perspective. This will be beneficial as well for communicating with non-developers stakeholders.
 
-```mermaid
+<div class="mermaid">
 stateDiagram-v2
     state "Order Accepted" as ACCEPTED
     state "Product Stock Reduced" as STOCK_REDUCED
@@ -242,7 +242,7 @@ stateDiagram-v2
     FailedDeliverySagas --> FAILED: All compensating transaction has been executed
     FailedPaymentSagas --> FAILED: All compensating transaction has been executed
     FAILED --> [*]
-```
+</div>
 
 ### Architecture Diagram
 
