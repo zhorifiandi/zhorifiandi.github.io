@@ -3,8 +3,6 @@ title: Avoid Manual Reconciliation, Solve Stuck Systems Flow using Saga Pattern
 categories: software-architecture
 tags: 
     - Software Architecture
-    - Reliability
-    - Saga Pattern
 mermaid: true
 cover-img: "/docs/2024-08-28-avoid-manual-reconciliation-solve-stuck-systems-flow-using-saga-pattern/image%203.png"
 thumbnail-img: "/docs/2024-08-28-avoid-manual-reconciliation-solve-stuck-systems-flow-using-saga-pattern/image%203.png"
