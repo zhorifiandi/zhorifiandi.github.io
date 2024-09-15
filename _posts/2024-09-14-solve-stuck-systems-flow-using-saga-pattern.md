@@ -1,6 +1,6 @@
 ---
 title: Avoid Manual Reconciliation, Solve Stuck Systems Flow using Saga Pattern
-excerpt: Saga Pattern offers a powerful solution for managing complex, multi-step processes in distributed systems (even if you’re using monolithic architecture), ensuring data consistency through compensating transactions and asynchronous processes. By breaking down large transactions into smaller, manageable steps, we can gracefully handle failures and maintain a seamless experience for both users and developers. Implementing this pattern helps reduce manual intervention, improves system reliability, and ensures smooth user experiences even when things go wrong.
+excerpt: Even if you’re using monolithic architecture, ensuring data consistency, you can leverage Saga Pattern for managing complex, multi-step processes in distributed systems. Implementing this pattern helps reduce manual intervention, improves system reliability, and ensures smooth user experiences even when things go wrong.
 categories: software-architecture
 tags: 
     - Software Architecture
