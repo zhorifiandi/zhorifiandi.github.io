@@ -4,6 +4,7 @@ excerpt: Have you ever encountered case where you need to do manual reconciliati
 categories: software-architecture
 tags: 
     - Software Architecture
+    - Saga Pattern
 mermaid: true
 cover-img: "/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%203.png"
 thumbnail-img: "/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%203.png"
