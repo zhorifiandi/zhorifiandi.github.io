@@ -8,9 +8,6 @@ tags: [Saga Pattern, Reliability]
 ---
 
 
-[https://excalidraw.com/#room=0d51b43a0d32efd85163,GB7wft54Sqlom7jkWmLxZg](https://excalidraw.com/#room=0d51b43a0d32efd85163,GB7wft54Sqlom7jkWmLxZg)
-
-
 # Pain Point: Stuck Systems Flow
 
 
@@ -354,7 +351,7 @@ This ensures no "stuck" states exist, and the customer gets their money back.
 # Conclusion
 
 
-The Saga Pattern offers a powerful solution for managing complex, multi-step processes in distributed systems, ensuring data consistency through compensating transactions and asynchronous processes. By breaking down large transactions into smaller, manageable steps, we can gracefully handle failures and maintain a seamless experience for both users and developers. Implementing this pattern helps reduce manual intervention, improves system reliability, and ensures smooth user experiences even when things go wrong.
+Saga Pattern offers a powerful solution for managing complex, multi-step processes in distributed systems (even if you’re using monolithic architecture), ensuring data consistency through compensating transactions and asynchronous processes. By breaking down large transactions into smaller, manageable steps, we can gracefully handle failures and maintain a seamless experience for both users and developers. Implementing this pattern helps reduce manual intervention, improves system reliability, and ensures smooth user experiences even when things go wrong.
 
 
 ## What’s next
