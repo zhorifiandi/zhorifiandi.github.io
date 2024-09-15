@@ -6,8 +6,7 @@ tags:
     - Software Architecture
     - Saga Pattern
 mermaid: true
-cover-img: "/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%203.png"
-thumbnail-img: "/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%203.png"
+image: "/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%203.png"
 minutes_read: 10
 ---
 
