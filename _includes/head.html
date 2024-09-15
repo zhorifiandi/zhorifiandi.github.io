@@ -21,6 +21,11 @@
   <!-- End Google Analytics -->
   {%- endif %}
 
+  {% if page.mermaid %}
+    {% include mermaid.html %}
+  {% endif %}
+
+
   <!-- Begin highlight.js support -->
   <!-- <link rel="stylesheet" href="/js/highlightjs/styles/github.css">
   <link rel="stylesheet" href="/js/highlightjs/styles/ssms.css" />
