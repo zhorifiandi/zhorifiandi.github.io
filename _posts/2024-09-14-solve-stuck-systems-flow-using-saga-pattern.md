@@ -265,7 +265,7 @@ While we've split the API into multiple components, this doesn't mean you need s
 
 ### Happy Path Flow Diagram
 
-![image.png](/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%204.png)
+![Happy Path Flow Diagram](/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%204.png)
 
 In this flow, each action succeeds and moves to the next sagas:
 
@@ -281,6 +281,9 @@ In this flow, each action succeeds and moves to the next sagas:
 In this path, no compensating transactions are triggered, and the entire process completes smoothly.
 
 ### Failed Delivery Compensating Saga Flow Diagram
+
+![failed delivery flow](/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%205.png)
+![compensanting saga flow](/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%206.png)
 
 If delivery fails, we need to trigger compensating transactions:
 
