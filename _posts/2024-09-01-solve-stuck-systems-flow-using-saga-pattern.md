@@ -1,6 +1,6 @@
 ---
 title: Avoid Manual Reconciliation, Solve Stuck Systems Flow using Saga Pattern
-excerpt: Have you ever encountered case where you need to do manual reconciliation when your systems break? This often happen in transactional flow, in which every requests matter. Implementing saga pattern will help reduce manual intervention, improves system reliability, and ensures smooth user experiences when things go wrong.
+excerpt: Have you ever encountered case where you need to do manual reconciliation when your systems break? This often happens in transactional flow, in which every request matters. Implementing saga pattern will help reduce manual intervention, improves system reliability, and ensures smooth user experiences when things go wrong.
 categories: software-architecture
 tags: 
     - Software Architecture
@@ -11,10 +11,9 @@ thumbnail-img: "/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/ima
 minutes_read: 10
 ---
 
-# Pain Point: Stuck Systems Flow
-Have you ever encountered case where you need to do manual reconciliation when your systems break? This often happen in transactional flow, in which every requests matter. 
+Have you ever encountered case where you need to do manual reconciliation when your systems break? This often happens in transactional flow, in which every request matters. 
 
-## Sample Case: E-commerce Order Flow
+# Sample Case: E-commerce Order Flow
 
 Imagine you have an API to create new orders, which have very minimum functionalities:
 
