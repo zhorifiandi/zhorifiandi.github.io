@@ -15,6 +15,9 @@ layout: default
       {%- if author -%}
         • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ author }}</span></span>
       {%- endif -%}</p>
+      {%- if page.minutes_read -%}
+        <span itemprop="minutes_read">• {{ page.minutes_read }} min read</span>
+      {%- endif -%}
   </header>
 
   <div class="share-links">
