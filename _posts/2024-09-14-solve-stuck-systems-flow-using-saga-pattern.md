@@ -1,6 +1,6 @@
 ---
 title: Avoid Manual Reconciliation, Solve Stuck Systems Flow using Saga Pattern
-excerpt: Even if you’re using monolithic architecture, you can leverage Saga Pattern for managing complex, multi-step processes in distributed systems. Implementing this pattern helps reduce manual intervention, improves system reliability, and ensures smooth user experiences even when things go wrong.
+excerpt: Have you ever encountered case where you need to do manual reconciliation when your systems break? This often happen in transactional flow, in which every requests matter. Implementing saga pattern will help reduce manual intervention, improves system reliability, and ensures smooth user experiences when things go wrong.
 categories: software-architecture
 tags: 
     - Software Architecture
@@ -11,6 +11,7 @@ minutes_read: 10
 ---
 
 # Pain Point: Stuck Systems Flow
+Have you ever encountered case where you need to do manual reconciliation when your systems break? This often happen in transactional flow, in which every requests matter. 
 
 ## Sample Case: E-commerce Order Flow
 
@@ -144,14 +145,6 @@ Let’s revisit our e-commerce example:
     - **Failure**: Trigger compensating transactions for both previous steps:
         - Refund the customer.
         - Restore product stock.
-
-### Benefits of the Saga Pattern in Handling Failures
-
-- **Consistency**: Compensating transactions ensure that your system never stays in an invalid state.
-- **Isolation**: Each step is independent, so a failure in one area doesn’t crash the entire system.
-- **Automation**: The saga automatically handles rollbacks and retries without manual intervention, minimizing human error.
-
-By handling failures at every step of the process, the Saga Pattern ensures that your system remains robust and fault-tolerant, even in complex distributed environments.
 
 ## Common Pitfalls
 
