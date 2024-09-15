@@ -18,8 +18,10 @@ linkedin_username: "zhorifiandi"
 #########################################################################################
 ######### Nothing below needs to be changed (unless you know what you're doing) #########
 #########################################################################################
+# Debug here: https://github.com/jekyll/minima/blob/master/_layouts/home.html
 theme: "minima"
 
+show_excerpts: true
 rss: rss
 
 mermaid: true
@@ -36,7 +38,7 @@ plugins:
 
 defaults:
   - scope:
-      path: ""
+      path: "misc"
       type: post
     values:
       tags: Misc
