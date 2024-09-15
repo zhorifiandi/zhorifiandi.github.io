@@ -17,11 +17,11 @@ Imagine you have an API to create new orders, which have very minimum functional
 - Charge Payment to Customers using 3rd party providers like Xendit, Stripe, etc.
 - Arrange Delivery of the Product to Customers.
 
-![image.png](./image.png)
+![image.png](2024-08-28-avoid-manual-reconciliation-solve-stuck-systems-flow-using-saga-pattern/image.png)
 
 ## What Could Go Wrong?
 
-![image.png](./image%201.png)
+![image.png](2024-08-28-avoid-manual-reconciliation-solve-stuck-systems-flow-using-saga-pattern/image%201.png)
 
 Imagine you received errors when creating delivery request after you’ve:
 
@@ -46,7 +46,7 @@ If these issues only occur once in a while, it’s fine. Can you imagine you rec
 
 ## The Short-Term Fix: Error Handling Logic in the API
 
-![image.png](./image%202.png)
+![image.png](2024-08-28-avoid-manual-reconciliation-solve-stuck-systems-flow-using-saga-pattern/image%202.png)
 
 So, in case of errors when creating new delivery, your service will do several rollback strategies:
 
@@ -243,7 +243,7 @@ stateDiagram-v2
 
 ### Architecture Diagram
 
-![image.png](./image%203.png)
+![image.png](2024-08-28-avoid-manual-reconciliation-solve-stuck-systems-flow-using-saga-pattern/image%203.png)
 
 The main difference between the solution and initial architectures are:
 
@@ -262,7 +262,7 @@ While we've split the API into multiple components, this doesn't mean you need s
 
 ### Happy Path Flow Diagram
 
-![image.png](./image%204.png)
+![image.png](2024-08-28-avoid-manual-reconciliation-solve-stuck-systems-flow-using-saga-pattern/image%204.png)
 
 In this flow, each action succeeds and moves to the next sagas:
 
