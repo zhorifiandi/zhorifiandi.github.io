@@ -7,7 +7,7 @@ tags:
     - Saga Pattern
 mermaid: true
 image: "/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/banner.png"
-minutes_read: 10
+minutes_read: 15
 ---
 
 ![banner.png](/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/banner.png)
@@ -91,7 +91,7 @@ I’d like to simplify Saga Pattern like this: `ACID, but on microservices / dis
 
 In the context of an e-commerce order flow, each action (like reducing stock, charging a customer, and arranging delivery) is a saga. If one of these steps/sagas fails, the system can "undo" previous sagas to maintain data consistency. For example, if charging the customer succeeds but arranging the delivery fails, the system can trigger compensating transaction: a refund.
 
-### I’m using Monolithic, not Micro-services…
+### "I’m using Monolithic, not Micro-services…"
 
 Even if you’re using [Monolithic](https://microservices.io/patterns/monolithic.html), micro-service techniques will become handy . If you’re using Monolithic, but you rely on 3rd party API: you can treat external/3rd parties APIs as `other independent microservices`. By adding The Saga Pattern to your arsenal, it will help you manage these external dependencies and ensures that your system stays consistent without manual intervention.
 
@@ -147,7 +147,7 @@ Let’s revisit our e-commerce example:
         - Refund the customer.
         - Restore product stock.
 
-## Common Pitfalls
+## Common Pitfalls ❌
 
 ### When to determine whether we retry or trigger compensating Transaction?
 
@@ -278,10 +278,6 @@ In this path, no compensating transactions are triggered, and the entire process
 
 Here's the scenario when the delivery proccess is failed.
 ![failed delivery flow](/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%205.png)
-
-When delivery fails, system will trigger compensating transactions:
-![compensanting saga flow](/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%206.png)
-
 1. **Order Accepted**
     1. **Create Order API** → Order Service creates the order and reduces product stock.
     2. **Creating Payment Worker** → payment is requested from the payment partner.
@@ -289,18 +285,20 @@ When delivery fails, system will trigger compensating transactions:
     1. Payment Webhooks API → Order Service update the order status to PAYMENT_CHARGED
     2. Creating Delivery Worker → Order Service arranges product delivery.
 3. **Delivery Failed** → Trigger Compensating Sagas
-    1. Trigger Refund
-        1. Create Refund Worker → the system triggers a refund request to the payment provider.
-        2. **Refund Succeeded** → the system restores product stock and marks the order as failed.
-    2. Trigger Product Stock Restored → the system restores product stock and marks the order as failed.
+
+![compensanting saga flow](/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image%206.png)
+1. Trigger Refund
+    1. Create Refund Worker → the system triggers a refund request to the payment provider.
+    2. **Refund Succeeded** → the system restores product stock and marks the order as failed.
+2. Trigger Product Stock Restored → the system restores product stock and marks the order as failed.
 
 This ensures no "stuck" states exist, and the customer gets their money back.
 
 # Conclusion
 
-Even if you’re using monolithic architecture, you can leverage Saga Pattern for managing complex, multi-step processes in distributed systems. Implementing this pattern helps reduce manual intervention, improves system reliability, and ensures smooth user experiences even when things go wrong.
+Even if you’re using monolithic architecture, you can leverage Saga Pattern for managing complex and multi-step processes in distributed systems. Implementing this pattern will reduce manual intervention, improves system reliability, and ensures smooth developer experiences even when things go wrong.
 
-## What’s next
+## What’s next? 🤔
 
 - Code Implementation on E-commerce Order Flow using Saga Pattern
 - Ensuring Idempotency in Message Consumption
