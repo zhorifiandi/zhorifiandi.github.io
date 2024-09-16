@@ -10,6 +10,8 @@ image: "/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/banner.png"
 minutes_read: 10
 ---
 
+![banner.png](/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/banner.png)
+
 Have you ever encountered case where you need to do manual reconciliation when your systems break? This often happens in transactional flow, in which every request matters. 
 
 # Sample Case: E-commerce Order Flow
