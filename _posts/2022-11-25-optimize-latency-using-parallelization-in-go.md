@@ -10,6 +10,9 @@ image: "/docs/2022-11-25-optimize-latency-using-parallelization-in-go/thumbnail.
 minutes_read: 5
 ---
 
+* toc
+{:toc}
+
 ## Background
 
 Ever wondered why your app server/worker takes long time? In some cases, it's caused by "slow" dependencies. If the dependencies are in your control, you can try to optimize the latency in dependencies sides. 
