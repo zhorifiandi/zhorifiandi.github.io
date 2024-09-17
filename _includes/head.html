@@ -32,6 +32,10 @@
     {% include mermaid.html %}
   {% endif %}
 
+  {% if site.tags != "" %}
+    {% include collecttags.html %}
+  {% endif %}
+
 
   <!-- Begin highlight.js support -->
   <link rel="stylesheet" href="/js/highlightjs/styles/github.css">
