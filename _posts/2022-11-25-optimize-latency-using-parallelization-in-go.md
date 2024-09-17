@@ -51,7 +51,7 @@ Notes:
 
 > Overall app latency will take 5 seconds! 🥲
 
-## How can we do to improve the overall latency from our App scope? 🤔
+## What can we improve from our App scope? 🤔
 
 ### Key concerns
 1. Does the order of all task execution matters? 
