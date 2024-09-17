@@ -32,11 +32,11 @@ This is how your app flow will generally work:
 <pre class="mermaid">
 graph TD
     start-->Process1
-    Process1[Fetch Product A Data] -->|1 second| Process2[Fetch Product B Data]
-    Process2 -->|1 second| Process3[Fetch Seller Data]
-    Process3 -->|1 second| Process4[Fetch Shipping Fee]
-    Process4 -->|1 second| Process5[Fetch Promo Information]
-    Process5 -->|1 second| Process6[Calculate Total Price]
+    Process1[P1: Fetch Product A Data] -->|1 second| Process2[P2: Fetch Product B Data]
+    Process2 -->|1 second| Process3[P3: Fetch Seller Data]
+    Process3 -->|1 second| Process4[P4: Fetch Shipping Fee]
+    Process4 -->|1 second| Process5[P5: Fetch Promo Information]
+    Process5 -->|1 second| Process6[P6: Calculate Total Price]
     Process6 -->|1 second| e[end]
 </pre>
 
@@ -86,18 +86,18 @@ graph TD
     subgraph Parallel Group 2
         subgraph Sequential Group 1
             subgraph Parallel Group 1
-                p1-->Process1[Fetch Product A Data]
-                p1-->Process2[Fetch Product B Data]
-                p1-->Process3[Fetch Seller Data]
+                p1-->Process1[P1: Fetch Product A Data]
+                p1-->Process2[P2: Fetch Product B Data]
+                p1-->Process3[P3: Fetch Seller Data]
                 Process1-->|1 second|e1[End of Parallelization]
                 Process2-->|1 second|e1
                 Process3-->|1 second|e1
             end
-            e1 -->|1 second| Process4[Fetch Shipping Fee]
+            e1 -->|1 second| Process4[P4: Fetch Shipping Fee]
         end
-        p0 -->|1 second| Process5[Fetch Promo Information]
+        p0 -->|1 second| Process5[P5: Fetch Promo Information]
     end
-    Process5 -->|1 second| Process6[Calculate Total Price]
+    Process5 -->|1 second| Process6[P6: Calculate Total Price]
     Process4-->|1 second|Process6
     Process6 -->|1 second| e[end]
     
