@@ -145,3 +145,5 @@ func RunAllParallel(numOfProcess int, processingTime uint) time.Duration {
 }
 
 ```
+
+Full source code can be seen in this github: [https://github.com/zhorifiandi/golearn/tree/main/parallelization](https://github.com/zhorifiandi/golearn/tree/main/parallelization)
