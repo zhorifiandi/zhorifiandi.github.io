@@ -11,3 +11,5 @@ title: Blog Archive
     {% endfor %}
   </ul>
 {% endfor %}
+
+{% include archive.html %}

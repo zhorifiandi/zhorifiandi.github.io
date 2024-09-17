@@ -3,9 +3,8 @@ title: Optimize Latency using Parallelization in Go
 excerpt: Ever wondered why your app server/worker takes long time? In some cases, it's caused by "slow" dependencies. If the dependencies are in your control, you can try to optimize the latency in dependencies sides. However, What if you don't have the control and it's beyond your scope to optimize the dependencies? What's the most feasible way to optimize your app latency from only your app scope?
 categories: software-engineering
 tags: 
-    - Parallelization
-    - Backend 
-    - Go
+    - backend 
+    - go
 mermaid: true
 image: "/docs/2022-11-25-optimize-latency-using-parallelization-in-go/thumbnail.png"
 minutes_read: 5
