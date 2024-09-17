@@ -49,9 +49,9 @@ Notes:
 
 
 
-> Overall app latency will take 5 seconds! :smiling_face_with_tear:
+> Overall app latency will take 5 seconds! 🥲
 
-How can we do to improve the overall latency from our App scope? :thinking:
+How can we do to improve the overall latency from our App scope? 🤔
 
 ### Key concerns
 1. Does the order of all task execution matters? 
@@ -65,7 +65,7 @@ The order of executions that really matters:
 
 The order of executions of other processes can be swapped.
 
-### Proposal: Make it Parallel!
+## 💡 Proposal: Make it Parallel! 
 > Steps: 
 > - Group the processes into the same group if the ordering don't really matters -> Let's call it Parallel group
 > - Group the processes into the same group if the ordering really matters. -> Let's call it Sequential group
@@ -144,3 +144,6 @@ func RunAllParallel(numOfProcess int, processingTime uint) time.Duration {
 ```
 
 Full source code can be seen in this github: [https://github.com/zhorifiandi/golearn/tree/main/parallelization](https://github.com/zhorifiandi/golearn/tree/main/parallelization)
+
+
+That's it, thanks for reading!
