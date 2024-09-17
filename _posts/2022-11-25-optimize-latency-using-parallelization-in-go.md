@@ -1,6 +1,6 @@
 ---
 title: Optimize Latency using Parallelization in Go
-excerpt: Ever wondered why your app server/worker takes long time? In some cases, it's caused by "slow" dependencies. If the dependencies are in your control, you can try to optimize the latency in dependencies sides. However, What if you don't have the control and it's beyond your scope to optimize the dependencies? What's the most feasible way to optimize your app latency from only your app scope?
+excerpt: Struggling with slow response times in your app? Often, the delay is due to slow dependencies, like third-party APIs. If you can't speed up these external services, try optimizing your own app's performance by leveraging parallelization. Running independent tasks concurrently can significantly reduce overall processing time and improve efficiency, even if some tasks remain slow.
 categories: software-engineering
 tags: 
     - backend 
@@ -10,27 +10,30 @@ image: "/docs/2022-11-25-optimize-latency-using-parallelization-in-go/thumbnail.
 minutes_read: 5
 ---
 
-Ever wondered why your app server/worker takes long time? In some cases, it's caused by "slow" dependencies. If the dependencies are in your control, you can try to optimize the latency in dependencies sides. 
+Ever wondered why your app server or worker takes longer than expected to complete tasks? Often, the culprit is slow dependencies—external services or operations your app depends on. If you control these dependencies, you can optimize them to reduce delays. But what if you don’t have control over them? For instance, you might rely on third-party APIs or services with fixed response times. 
 
-However, What if you don't have the control and it's beyond your scope to optimize the dependencies? What's the most feasible way to optimize your app latency from only your app scope?
+In these cases, you can’t speed up the dependencies themselves, but you can improve your app’s performance by optimizing how you handle these operations. One effective approach is parallelization. By running independent tasks concurrently, you can reduce overall processing time and make your app more efficient, even if some tasks are slow.
 
 * toc
 {:toc}
 
 
-## Case: Calculate Total Price in Marketplace Purchase
+# Case: Calculate Total Price in Marketplace Purchase
 
-Imagine your app is a backend component in Marketplace to calculate total price of a purchase from a seller. 
+To illustrate how parallelization can improve performance, let’s examine a typical workflow for calculating the total price in an online marketplace. The process involves several sequential steps, each dependent on the results of the previous one.
 
-### Assumptions
-- Buyer buy Product A and Product B from same seller
-- Shipping Fee can be combined for two products
-- Buyer needs to pay some taxes
-- Buyer have a promo code, so that they can have a discount! To simplify, let say the discount is flat!
+## Workflow Descriptions
+1. `FetchProductAData`: Retrieve details for Product A, including its price.
+2. `FetchProductBData`: Retrieve details for Product B, including its price.
+3. `FetchSellerData`: Obtain information about the seller, which is needed for calculating shipping fees.
+4. `FetchShippingFee`: Calculate the shipping fee based on the data from Products A and B, and the seller.
+5. `FetchPromoInformation`: Retrieve any applicable discount or promo code details.
+6. `CalculateTotalPrice`: Combine all the gathered data (product prices, shipping fee, and promo) to compute the final price.
 
 
+### Naive Sequential Process
+In a naive approach, each step must wait for the previous step to complete before starting. This leads to inefficient processing times as tasks are done one after another.
 
-This is how your app flow will generally work:
 <pre class="mermaid">
 graph TD
     start-->Process1
@@ -49,11 +52,9 @@ Notes:
 - To Fetch Promo Information, the app will need `promo_code`
 - Formula: Total Price = Product A Price + Product B Price + Shipping Fee + Tax Fee - Promo Code 
 
+*Overall app latency will take 5 seconds! 🥲*
 
-
-> Overall app latency will take 5 seconds! 🥲
-
-## What can we improve from our App scope? 🤔
+## What Can We Improve From Our App Scope? 🤔
 
 ### Key concerns
 1. Does the order of all task execution matters? 
@@ -62,24 +63,40 @@ Notes:
 
 ### Analysis
 The order of executions that really matters:
-1. `Process 4` must be executed after `Process 1`, `Process 2`, and `Process 3`
-2. `Process 6` must be executed after other Processes.
+1. `FetchShippingFee` must be executed after `FetchProductAData`, `FetchProductBData`, and `FetchSellerData`.
+2. `CalculateTotalPrice` must be executed after other processes.
 
 The order of executions of other processes can be swapped.
 
-## 💡 Proposal: Make it Parallel! 
+## 💡 Proposal: Group the Processes and Make it Parallel! 
 > Steps: 
 > - Group the processes into the same group if the ordering don't really matters -> Let's call it Parallel group
 > - Group the processes into the same group if the ordering really matters. -> Let's call it Sequential group
 
-From above rule, we can have these list of groups
-1. Parallel Group 1, consists of: `Process 1`, `Process 2`, `Process 3`
-2. Sequential Group 1, consists of: `Parallel Group 1` and `Process 4`
-3. Parallel Group 2, consists of: `Sequential Group 1` and `Process 5`
-4. Sequential Group 2, consists of: `Parallel Group 2` and `Process 6`
+From the above analysis, we can organize the processes into these groups:
 
+### Parallel Group 1: Fetch Product and Seller Information
+- **Process 1:** Fetch Product A Data
+- **Process 2:** Fetch Product B Data
+- **Process 3:** Fetch Seller Data
 
-Hence, we can have the app to work like this
+### Sequential Group 1: Fetch Shipping Fee
+Sequential Group 1 consists of:
+- **Parallel Group 1** (Fetch Product and Seller Information)
+- **Process 4:** Fetch Shipping Fee
+
+### Parallel Group 2: Fetch Promo Information
+Parallel Group 2 consists of:
+- **Sequential Group 1** (Fetch Shipping Fee)
+- **Process 5:** Fetch Promo Information
+
+### Sequential Group 2: Calculate Total Price
+Sequential Group 2 consists of:
+- **Parallel Group 2** (Fetch Promo Information)
+- **Process 6:** Calculate Total Price
+
+### Parallelized Workflow Diagram
+The parallelized approach improves efficiency by executing independent tasks concurrently.
 <pre class="mermaid">
 graph TD
 
@@ -105,76 +122,11 @@ graph TD
     
 </pre>
 
-## Let's Get into The Code!
+# Let's Get into The Code!
 
-### Initial Code (using Sequential Approach)
+## Initial Code (Naive Sequential Approach)
 
-Let say you have these base functions for fetch product, seller, etc.
-```go
-type Product struct {
-	Name  string
-	Price float64
-}
-
-type Seller struct {
-	Name    string
-	Address string
-}
-
-type ShippingFee struct {
-	Amount float64
-}
-
-type Promo struct {
-	Discount float64
-}
-
-func FetchProductAData() Product {
-	ExecuteMockProcess(ProcessingTime)
-	log.Default().Println("Product A data fetched")
-	return Product{
-		Name:  "Product A",
-		Price: 50,
-	}
-}
-
-func FetchProductBData() Product {
-	ExecuteMockProcess(ProcessingTime)
-	log.Default().Println("Product B data fetched")
-	return Product{
-		Name:  "Product B",
-		Price: 100,
-	}
-}
-
-func FetchSellerData() Seller {
-	ExecuteMockProcess(ProcessingTime)
-	log.Default().Println("Seller data fetched")
-	return Seller{
-		Name:    "Seller A",
-		Address: "Address A",
-	}
-}
-
-func FetchShippingFee(sellerAddress string) ShippingFee {
-	ExecuteMockProcess(ProcessingTime)
-	log.Default().Println("Shipping fee fetched")
-	return ShippingFee{
-		Amount: 10,
-	}
-}
-
-func FetchPromoInformation() Promo {
-	ExecuteMockProcess(ProcessingTime)
-	log.Default().Println("Promo information fetched")
-	return Promo{
-		Discount: 5,
-	}
-}
-
-```
-
-Then you have the *sequential* version of the *CalculateTotalPrice* function, which is simple yet slow.
+Here’s how the naive sequential version of the `CalculateTotalPrice` function looks:
 
 ```go
 func CalculateTotalPrice_Sequential() float64 {
@@ -191,13 +143,11 @@ func CalculateTotalPrice_Sequential() float64 {
 }
 ```
 
-### Group and Parallelize each Process
+## Parallelizing the Process
+Leverage [Goroutines](https://go.dev/tour/concurrency) and [Wait Group](https://pkg.go.dev/sync#WaitGroup) to parallelize tasks:
 
-Try to parallelize it! Leverage
-- Goroutines
-- Wait Group
-
-Here are the `parallel group 1` which defined in the flow diagram
+### Parallel Group 1: `fetchProductAndSellerInfo`
+Here are the `fetchProductAndSellerInfo` which defined in the flow diagram
 ```go
 func fetchProductAndSellerInfo(order *Order) {
 	var productA Product
@@ -230,6 +180,7 @@ func fetchProductAndSellerInfo(order *Order) {
 }
 ```
 
+### Sequential Group 1: `fetchShippingFee`
 Here are the `sequential group 1` which defined in the flow diagram
 ```go
 // sequential group 1
@@ -240,6 +191,7 @@ func fetchShippingFee(order *Order) {
 }
 ```
 
+### Parallel Group 2: `fetchCalculationComponents`
 Here are the `parallel group 2`
 ```go
 func fetchCalculationComponents(order *Order) {
@@ -250,6 +202,7 @@ func fetchCalculationComponents(order *Order) {
 	go func() {
 		defer wg.Done()
 		promo = FetchPromoInformation()
+		order.Promo = &promo
 	}()
 
 	go func() {
@@ -258,12 +211,10 @@ func fetchCalculationComponents(order *Order) {
 	}()
 
 	wg.Wait()
-
-	order.Promo = &promo
 }
 ```
 
-### Finally the CalculateTotalPrice_Parallelized
+### Finally: CalculateTotalPrice_Parallelized
 Here is the Final Function
 ```go
 func CalculateTotalPrice_Parallelized() float64 {
@@ -276,9 +227,6 @@ func CalculateTotalPrice_Parallelized() float64 {
 	return totalPrice
 }
 ```
-
-Full source code can be seen in this github: [https://github.com/zhorifiandi/golearn/tree/main/parallelization](https://github.com/zhorifiandi/golearn/tree/main/parallelization)
-
 
 ## Benchmark
 ### Sequential Function 
@@ -317,4 +265,11 @@ PASS
 ok  	github.com/zhorifiandi/golearn/parallelization	(cached)
 ```
 
-That's it, thanks for reading!
+# Conclusion
+In this post, we demonstrated how parallelization can drastically reduce processing time by improving task efficiency. By reorganizing a sequential workflow for calculating prices in a marketplace into parallel and sequential groups, we cut the total processing time from ***5 seconds*** to ***2 seconds***.
+
+Using Go’s goroutines and sync.WaitGroup, we effectively managed concurrent tasks, showcasing how even with fixed external dependencies, you can optimize performance within your application.
+
+For the full implementation details, visit the [Github Repository](https://github.com/zhorifiandi/golearn/tree/main/parallelization).
+
+Thank you for reading!
