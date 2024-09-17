@@ -30,7 +30,7 @@ Imagine your app is a backend component in Marketplace to calculate total price 
 
 
 This is how your app flow will generally work:
-```mermaid
+<pre class="mermaid">
 graph TD
     start-->Process1
     Process1[Fetch Product A Data] -->|1 second| Process2[Fetch Product B Data]
@@ -39,7 +39,7 @@ graph TD
     Process4 -->|1 second| Process5[Fetch Promo Information]
     Process5 -->|1 second| Process6[Calculate Total Price]
     Process6 -->|1 second| e[end]
-```
+</pre>
 
 Notes:
 - To Fetch Product Data, the app will need `product_id`
