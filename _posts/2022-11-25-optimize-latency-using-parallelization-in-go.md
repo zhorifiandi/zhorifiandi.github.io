@@ -8,10 +8,8 @@ tags:
     - Go
 mermaid: true
 image: "/docs/2022-11-25-optimize-latency-using-parallelization-in-go/thumbnail.png"
-minutes_read: 15
+minutes_read: 5
 ---
-
-# Optimize Latency using Parallelization in Go
 
 ## Background
 
@@ -81,7 +79,7 @@ From above rule, we can have these list of groups
 
 
 Hence, we can have the app to work like this
-```mermaid
+<pre class="mermaid">
 graph TD
 
     start-->p0[parallelize]
@@ -104,7 +102,7 @@ graph TD
     Process4-->|1 second|Process6
     Process6 -->|1 second| e[end]
     
-```
+</pre>
 
 ## Let's Get into The Code!
 
