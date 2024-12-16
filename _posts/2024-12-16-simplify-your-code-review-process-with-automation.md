@@ -24,13 +24,16 @@ As engineering teams grow, code reviews become *challenging*. We've all been the
 - Product Manager🗿: Hey, Is there any deployment? Why can't I access the homepage?
 - Le Senior Reviewer 🗣️: Checking, wait... The last PR incorrectly change the Database URL env variable...
 
-
-* Not real story of mine.. *
+*Not real story of mine.. *
 
 These kind of reviews often become bottlenecks, slowing us down, put heavy toils on developers, or in worst case, even cost us! (*Production Down*) It needs to stop! By leveraging existing tools and focusing on what really matters, we can speed up the code review and make it more effective. Say goodbye to endless debates about tabs vs. spaces!
 
+---
+
 * toc
 {:toc}
+
+---
 
 ## Common Code Review Challenges
 
