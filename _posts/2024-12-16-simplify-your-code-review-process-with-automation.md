@@ -15,6 +15,9 @@ minutes_read: 5
 
 *As engineering teams grow, code reviews become challenging yet still crucial for quality control. We've all been there – nitpicking over minor issues while important stuff gets lost. These reviews often become bottlenecks, slowing us down. But by leveraging smart tools and focusing on what really matters, we can speed up the process and make it more effective. Say goodbye to endless debates about tabs vs. spaces!*
 
+* toc
+{:toc}
+
 ## Common Code Review Challenges
 
 Before diving into solutions, let’s look at some common challenges in "traditional” code review processes:
