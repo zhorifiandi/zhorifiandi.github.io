@@ -22,9 +22,9 @@ As engineering teams grow, code reviews become *challenging*. We've all been the
 *..... 2 hours later*
 
 - Product Manager🗿: Hey, Is there any deployment? Why can't I access the homepage?
-- Le Senior Reviewer 🗣️: Checking, wait... The last PR incorrectly change the Database URL env variable...
+- Le Senior Reviewer 🗣️: Checking.... What the *%@$%#... The last PR use the incorrect env variable...
 
-*Not real story of mine.. *
+*Disclaimer: Not real story of mine..*
 
 These kind of reviews often become bottlenecks, slowing us down, put heavy toils on developers, or in worst case, even cost us! (*Production Down*) It needs to stop! By leveraging existing tools and focusing on what really matters, we can speed up the code review and make it more effective. Say goodbye to endless debates about tabs vs. spaces!
 
@@ -46,7 +46,7 @@ Before diving into solutions, let’s look at some common challenges in "traditi
 
 ---
 
-## Tool-Based Solutions for Streamlining Code Review
+## Streamlining Code Review with Tool-Based Solutions
 
 > *I don't want to reinvent the wheel—the only source of truth you should trust is the official documentation for each tool. I'll provide links and references on how to implement them. 🤞.*
 
@@ -85,17 +85,20 @@ Automated tests validate functionality and performance. Running these tests on e
 
 ### 3. **Add Code Scanning for Security and Code Quality**
 
-Security vulnerabilities and code quality issues can be hard to spot manually, especially in large codebases. Tools like SonarQube and CodeQL perform automated scans to identify issues.  
+Security vulnerabilities and code quality issues can be hard to spot manually, especially in large codebases. Tools like [SonarQube](https://github.com/SonarSource/sonarqube) perform automated scans to identify issues.  This tool will have checking on this area:
+- Reliability
+- Security Vulnerabilities
+- Code Smells
 
-- Set these tools to scan automatically on each PR.  
-- Configure rules to block merging until critical issues are resolved.  
+
+Check the list of available rules in here: https://rules.sonarsource.com/
 
 ---
 
 ### 4. **Implement Architecture Unit Tests**
 Checking for architectural consistency can be hard, especially as systems grow. Architecture tests ensure that code changes adhere to the established design and principles, keeping the codebase organized and scalable.
 
-Tool that pioneering this is [ArchUnit](https://www.archunit.org/), which covers Java and .NET/C#. (I haven’t tried them😅). However, I have tried other tool which inspired by ArchUnit:
+Tool that pioneering this is [ArchUnit](https://www.archunit.org/), which covers Java and .NET/C#. (I haven’t tried them😅). However, I have tried other toos which inspired by ArchUnit:
 - [ts-arch for TypeScript](https://github.com/ts-arch/ts-arch)  
 - [arch-go for Golang](https://github.com/fdaines/arch-go)
 
@@ -103,23 +106,23 @@ You can write custom architecture validation tests and integrate them into your 
 
 ---
 
-## Focus on What Matters
+## Effective Code Reviews: Focus on What Really Matters
 
 Once automated tools handle the more tedious parts, reviewers can focus on areas that really matters:
 
-**Requirements**
+### Feature Requirements
 
 Check that the code fulfills the requirements by evaluating associated tests and how well they cover the functionality. This helps ensure that the code meets both the functional and non-functional requirements.
 
-**Performance**
+### Performance
 
 Automated tools can only go so far. Performance review might involve checking for inefficient algorithms, slow database queries, or unnecessary data processing, particularly in parts of the system that impact end-users directly.
 
-**Distributed System Concerns**
+### Distributed System Concerns
 
 When working with microservices or other distributed systems, reviewers need to consider failure scenarios, such as network timeouts or partial outages. A well-designed system should handle these gracefully.
 
-**Scalability**
+### Scalability
 
 Make sure the code can handle future demands by evaluating scalability considerations. Code that works well under current conditions might fail as user numbers grow, so reviewers should keep an eye on potential scaling issues.
 
