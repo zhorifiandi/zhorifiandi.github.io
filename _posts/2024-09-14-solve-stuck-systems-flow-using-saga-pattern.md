@@ -6,7 +6,7 @@ tags:
     - software-architecture
     - backend
 mermaid: true
-image: "/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/banner.png"
+image: "/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/thumbnail.png"
 minutes_read: 15
 ---
 
