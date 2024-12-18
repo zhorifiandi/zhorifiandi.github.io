@@ -74,10 +74,12 @@ For Go teams, [golangci-lint](https://golangci-lint.run/) is recommended by the 
 
 ### 2. **Integrate Automated Tests in Pull Requests (PRs)**
 
-Automated tests validate functionality and performance. Running these tests on every PR catches bugs before merging. These tests can include unit tests, integration tests, or even performance/load tests.  
+Automated tests validate functionality and performance. Running these tests on every PR catches bugs before merging. These tests can include unit tests, integration tests, or even performance/load tests. I won't cover how you should write tests, it's very broad topic, here are some good source I can recommend:
+- [Martin Fowler - Microservice Testing](https://martinfowler.com/articles/microservice-testing)
+- [Xendit Engineering - Stop Testing your Code](https://medium.com/xendit-engineering/stop-testing-your-code-06c46dbb6554)
 
-#### GitHub Actions Examples:
-
+#### Integration with CI - GitHub Actions Examples:
+Here are samples on how you can set it up in Github Action:
 - [Go](https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-go)  
 - [Node.js](https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-nodejs)
 
@@ -91,14 +93,15 @@ Security vulnerabilities and code quality issues can be hard to spot manually, e
 - Code Smells
 
 
-Check the list of available rules in here: https://rules.sonarsource.com/
+![Sample Sonar Rules](/docs/2024-12-16-simplify-your-code-review-process-with-automation/sample-sonar.png)
+Check the list of available rules in here: [rules.sonarsource.com](https://rules.sonarsource.com/)
 
 ---
 
 ### 4. **Implement Architecture Unit Tests**
 Checking for architectural consistency can be hard, especially as systems grow. Architecture tests ensure that code changes adhere to the established design and principles, keeping the codebase organized and scalable.
 
-Tool that pioneering this is [ArchUnit](https://www.archunit.org/), which covers Java and .NET/C#. (I haven’t tried them😅). However, I have tried other toos which inspired by ArchUnit:
+Tool that pioneering this is [ArchUnit](https://www.archunit.org/), which covers Java and .NET/C#. (I haven’t tried them😅). However, I have tried other tools which inspired by ArchUnit:
 - [ts-arch for TypeScript](https://github.com/ts-arch/ts-arch)  
 - [arch-go for Golang](https://github.com/fdaines/arch-go)
 

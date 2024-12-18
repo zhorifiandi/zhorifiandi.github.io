@@ -10,6 +10,8 @@ image: "/docs/2022-11-25-optimize-latency-using-parallelization-in-go/thumbnail.
 minutes_read: 5
 ---
 
+![Go Parallelization Illustration](/docs/2022-11-25-optimize-latency-using-parallelization-in-go/illustration.webp)
+
 Ever wondered why your app server or worker takes longer than expected to complete tasks? Often, the culprit is slow dependencies—external services or operations your app depends on. If you control these dependencies, you can optimize them to reduce delays. But what if you don’t have control over them? For instance, you might rely on third-party APIs or services with fixed response times. 
 
 In these cases, you can’t speed up the dependencies themselves, but you can improve your app’s performance by optimizing how you handle these operations. One effective approach is parallelization. By running independent tasks concurrently, you can reduce overall processing time and make your app more efficient, even if some tasks are slow.
