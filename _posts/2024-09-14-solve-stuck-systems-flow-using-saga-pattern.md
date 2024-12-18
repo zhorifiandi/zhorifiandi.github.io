@@ -34,6 +34,7 @@ Imagine you have an API to create new orders, which have very minimum functional
 - Arrange Delivery of the Product to Customers.
 
 ![image.png](/docs/2024-09-14-solve-stuck-systems-flow-using-saga-pattern/image.png)
+
 ---
 
 ## What Could Go Wrong?
