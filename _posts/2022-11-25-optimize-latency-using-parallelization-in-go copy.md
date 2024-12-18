@@ -272,6 +272,6 @@ In this post, we demonstrated how parallelization can drastically reduce process
 
 Using Go’s goroutines and sync.WaitGroup, we effectively managed concurrent tasks, showcasing how even with fixed external dependencies, you can optimize performance within your application.
 
-For the full implementation details, visit the [Github Repository](https://github.com/zhorifiandi/golearn/tree/main/parallelization).
+For the full implementation details, visit the [Github Repository](https://github.com/zhorifiandi/golearn/tree/main/go/parallelization).
 
 Thank you for reading!
