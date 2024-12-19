@@ -22,7 +22,7 @@ As engineering teams grow, code reviews become *challenging*. We've all been the
 *..... 2 hours later*
 
 - Product Manager🗿: Hey, Is there any deployment? Why can't I access the homepage?
-- Le Senior Reviewer 🗣️: Checking.... What the *%@$%#... The last PR use the incorrect env variable...
+- Le Senior Reviewer 🗣️: Checking.... What the *%@$%#... The last PR makes the cache hit ratio very low which bring down the database...
 
 *Disclaimer: Not real story of mine..*
 

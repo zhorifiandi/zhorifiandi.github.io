@@ -3,7 +3,7 @@
 
 <!-- <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=zhorifiandi" alt="zhorifiandi" /></a> </p> -->
 
-I’m currently working on Cross Border Payment and Fintech Infrastructure [@Xendit](https://www.xendit.co/en-id/products/cross-border-payments/). Previously worked on Personalization and Recommendation [@Bukalapak](https://www.bukalapak.com/).
+I’m currently working on Cross Border Payment and Fintech Infrastructure [@Xendit](https://www.xendit.co/en-id/products/cross-border-payments/). Previously worked on Personalization and Recommendation [@Bukalapak](https://www.bukalapak.com/). I studied Informatics (Computer Science) [@ITB](https://itb.ac.id/)
 
 
 <h3 align="left">Connect with me:</h3>

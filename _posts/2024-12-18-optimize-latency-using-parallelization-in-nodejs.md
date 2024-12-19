@@ -16,9 +16,14 @@ Ever wondered why your app server or worker takes longer than expected to comple
 
 In these cases, you can’t speed up the dependencies themselves, but you can improve your app’s performance by optimizing how you handle these operations. One effective approach is parallelization. By running independent tasks concurrently, you can reduce overall processing time and make your app more efficient, even if some tasks are slow.
 
+> If you prefer the write up in Go, you can refer to [this blog post](https://zhorifiandi.github.io/software-engineering/2022/11/25/optimize-latency-using-parallelization-in-go-copy.html) instead
+
+---
+
 * toc
 {:toc}
 
+---
 
 # Case: Calculate Total Price in Marketplace Purchase
 
