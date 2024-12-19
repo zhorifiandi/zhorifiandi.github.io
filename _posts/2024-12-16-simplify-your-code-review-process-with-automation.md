@@ -22,13 +22,13 @@ As engineering teams grow, code reviews become *challenging*. We've all been the
 *..... 2 hours later*
 
 - Product Manager🗿: Hey, Is there any deployment? Why can't I access the homepage?
-- Le Senior Reviewer 🗣️: Checking.... What the *%@$%#... The last PR makes the cache hit ratio very low which bring down the database...
+- Le Senior Reviewer 🗣️: Checking.... What the *%@$%#... The last PR makes the cache hit ratio drops which bring down the database...
 
 *Disclaimer: Not real story of mine..*
 
-These kind of reviews often become bottlenecks, slowing us down, put heavy toils on developers, or in worst case, even cost us! (*Production Down*) It needs to stop! 
+These *nitpicking* reviews often become bottlenecks, slowing us down, put heavy toils on developers, or in worst case, even cost us! Developers become so fatigue that they miss to notice fatal mistake in code review. It needs to stop! 
 
-It's very possible to automate this kind of checks by leveraging existing tools and focusing on what really matters. By then, we can speed up the code review and make it more effective. Say goodbye to endless debates about tabs vs. spaces!
+It's very possible to automate this *nitpick* checks by leveraging existing tools, so that Developers can focus on what really matters. By then, we can speed up the code review and make it more effective. Say goodbye to endless debates about tabs vs. spaces!
 
 ---
 
@@ -41,10 +41,17 @@ It's very possible to automate this kind of checks by leveraging existing tools 
 
 Before diving into solutions, let’s look at some common challenges in "traditional” code review processes:
 
-- **Manual Checks Are Tedious:** Reviewers often find themselves bogged down by minor style issues or syntax nits, making it harder to focus on the actual logic.
-- **Review Quality Is Inconsistent:** Different reviewers may focus on different aspects, which can lead to inconsistent standards across the codebase.
-- **Important Details Get Missed:** Manual reviews may not always catch edge cases, especially if the reviewer is unfamiliar with certain code sections.
-- **Focus Gets Diverted:** Time spent on minor issues reduces the focus on essential aspects like performance, architecture, or potential scaling issues.
+### 1. Manual Checks Are Tedious
+Reviewers often find themselves bogged down by minor style issues or syntax nits, making it harder to focus on the actual logic.
+
+### 2. Review Quality Is Inconsistent
+Different reviewers may focus on different aspects, which can lead to inconsistent standards across the codebase.
+
+### 3. Important Details Get Missed
+Manual reviews may not always catch edge cases, especially if the reviewer is unfamiliar with certain code sections.
+
+### 4. Focus Gets Diverted
+Time spent on minor issues reduces the focus on essential aspects like performance, architecture, or potential scaling issues.
 
 ---
 
@@ -113,21 +120,21 @@ You can write custom architecture validation tests and integrate them into your 
 
 ## Effective Code Reviews: Focus on What Really Matters
 
-Automated tools handle the tedious parts, while reviewers can focus on areas that really matters:
+When Automated tools already handle the tedious parts, reviewers can focus on areas that really matters:
 
-### Feature Requirements
+### 1. Feature Requirements
 
 Check that the code fulfills the requirements by evaluating associated tests and how well they cover the functionality. This helps ensure that the code meets both the functional and non-functional requirements.
 
-### Performance
+### 2. Performance
 
 Automated tools can only go so far. Performance review might involve checking for inefficient algorithms, slow database queries, or unnecessary data processing, particularly in parts of the system that impact end-users directly.
 
-### Distributed System Concerns
+### 3. Distributed System Concerns
 
 When working with microservices or other distributed systems, reviewers need to consider failure scenarios, such as network timeouts or partial outages. A well-designed system should handle these gracefully.
 
-### Scalability
+### 4. Scalability
 
 Make sure the code can handle future demands by evaluating scalability considerations. Code that works well under current conditions might fail as user numbers grow, so reviewers should keep an eye on potential scaling issues.
 
@@ -137,4 +144,4 @@ Make sure the code can handle future demands by evaluating scalability considera
 
 Efficient code review process combines automated tools with developer expertise. Your team can reduce time spent on repetitive tasks and focus on what really matters.
 
-This approach aligns with CI/CD practices, enabling frequent merges with confidence. Hopefully, no more silly mistakes get pushed uncaught to production moving forward!
+This approach aligns with CI/CD practices, enabling frequent merges with confidence. Hopefully, no more silly mistakes get pushed uncaught to production moving forward! ✌️
