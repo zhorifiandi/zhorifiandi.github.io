@@ -18,7 +18,7 @@ In the realm of distributed systems, especially when working with messaging patt
 
 ## 1. Traceability and Observability
 
-[https://tenor.com/view/pikachu-cute-pokemon-detective-pikachu-magnifying-glass-gif-17632001](https://tenor.com/view/pikachu-cute-pokemon-detective-pikachu-magnifying-glass-gif-17632001)
+![Pikachu Observe](https://tenor.com/view/pikachu-cute-pokemon-detective-pikachu-magnifying-glass-gif-17632001)
 
 Imagine debugging a worker issue without any logs. Sounds like a nightmare, right? Observability is your system's flashlight in the dark. It allows you to monitor and debug distributed architectures with ease.
 
@@ -115,7 +115,7 @@ A payment worker processing duplicate refund requests can use a state-based chec
 
 ## 6. Resiliency
 
-[https://tenor.com/view/hajime-no-ippo-box-boxing-punch-jab-gif-5247336](https://tenor.com/view/hajime-no-ippo-box-boxing-punch-jab-gif-5247336)
+![Resilient Boxer](https://tenor.com/view/hajime-no-ippo-box-boxing-punch-jab-gif-5247336)
 
 A resilient worker is like a boxer who keeps getting up after every punch! Automatic retries and fallback mechanisms are critical to support resiliency properties.
 
