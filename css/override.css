@@ -3,6 +3,12 @@ hr {
   margin-bottom: 20px;
 }
 
+p > img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Post navigation links */
 .post_navi {
   display: flex;
