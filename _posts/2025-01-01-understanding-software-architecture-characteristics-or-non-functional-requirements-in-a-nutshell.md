@@ -13,10 +13,7 @@ minutes_read: 4
 ![Understanding Software Architecture Characteristics (or Non Functional Requirements) in a Nutshell](/docs/2025-01-01-understanding-software-architecture-characteristics-or-non-functional-requirements-in-a-nutshell/thumbnail.png)
 
 
-> **Architecture Characteristics** are anything that describes **concerns critical to the success of the architecture**, and therefore the system as a whole, **without discounting its importance**. Another terms for these: ***Non functional Requirements***; ***Quality Attributes.***
-
-– From Book: Fundamentals of Software Architecture by Mark Richards and Neal Ford ([google books](https://books.google.co.id/books/about/Fundamentals_of_Software_Architecture.html?id=_pNdwgEACAAJ&redir_esc=y))
-> 
+> **Architecture Characteristics** are anything that describes **concerns critical to the success of the architecture**, and therefore the system as a whole, **without discounting its importance**. Another terms for these: ***Non functional Requirements***; ***Quality Attributes.***. From Book: Fundamentals of Software Architecture by Mark Richards and Neal Ford ([google books](https://books.google.co.id/books/about/Fundamentals_of_Software_Architecture.html?id=_pNdwgEACAAJ&redir_esc=y))
 
 When building software systems, understanding your functional requirements—what features your system should provide—is crucial. However, that alone will only take you so far. To truly ensure the success and longevity of your system, you need to go beyond the functional aspects and dive into Non-Functional Requirements (NFRs).
 
@@ -35,7 +32,6 @@ We can categorize NFRs or Architecture Characteristics as 3 big categories:
 ## Operational Architecture Characteristics
 
 > **Operational Architecture Characteristics** - covering operational capabilities of how the distributed systems work
-> 
 
 | **NFR / Architecture Characteristic** | **Definition** |
 | --- | --- |
@@ -111,7 +107,6 @@ Toil refers to manual, repetitive tasks that consume time and resources. Minimiz
 ## Structural Architecture Characteristics
 
 > **Structural Architecture Characteristics** - covering code structure quality concerns
-> 
 
 | **NFR / Architecture Characteristic** | **Definition** |
 | --- | --- |
@@ -128,7 +123,7 @@ Maintainability refers to how easily a system can be modified, enhanced, or fixe
 - **Mean Time to Ship New Features**: Tracks the average time taken to develop and release new features.
 - **PR Review Time**: Measures the time taken to review and merge pull requests.
 - **Deployment Time**: Tracks the time taken to deploy changes to production.
-- **Maintainability Score from Code Scanning tools**: A tool that evaluates the maintainability of code based on factors like complexity and code duplication. Sample software: [**SonarQube](https://github.com/SonarSource/sonarqube).**
+- **Maintainability Score from Code Scanning tools**: A tool that evaluates the maintainability of code based on factors like complexity and code duplication. Sample software: [SonarQube](https://github.com/SonarSource/sonarqube).
 
 ### **2. Quality**
 
@@ -153,7 +148,7 @@ Testability measures how easily the system can be tested for correctness, perfor
 ## **Cross-Cutting** Architecture Characteristics
 
 > **Cross-Cutting Architecture Characteristics** - covering characteristics that fall outside recognizable categories, yet form important design constraints and considerations.
-> 
+
 
 | **NFR / Architecture Characteristic** | **Definition** |
 | --- | --- |
