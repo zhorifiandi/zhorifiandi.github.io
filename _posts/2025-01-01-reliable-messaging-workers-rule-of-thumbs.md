@@ -1,5 +1,5 @@
 ---
-title: 🔮 Reliable Messaging Workers: Rule of Thumbs
+title: 🔮 Reliable Messaging Workers - Rule of Thumbs
 excerpt: In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role. These unsung heroes handle messages from queues or brokers, ensuring tasks are executed seamlessly. But what happens when things go awry? Workers must be resilient, fault-tolerant, and reliable. This post dives into the essential properties every reliable worker should have, sprinkled with practical tips to keep your system humming. (Don’t worry, I have applied these rule of thumbs in several Xendit teams (and services), and we had almost zero issues, and make developers life happy!)
 categories: software-engineering
 tags: 
