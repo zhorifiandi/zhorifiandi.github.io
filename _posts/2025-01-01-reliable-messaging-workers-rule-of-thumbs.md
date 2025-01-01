@@ -1,5 +1,5 @@
 ---
-title: 🔮 Reliable Messaging Workers - Rule of Thumbs
+title: Reliable Messaging Workers - Rule of Thumbs
 excerpt: In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role. These unsung heroes handle messages from queues or brokers, ensuring tasks are executed seamlessly. But what happens when things go awry? Workers must be resilient, fault-tolerant, and reliable. This post dives into the essential properties every reliable worker should have, sprinkled with practical tips to keep your system humming. (Don’t worry, I have applied these rule of thumbs in several Xendit teams (and services), and we had almost zero issues, and make developers life happy!)
 categories: software-engineering
 tags: 
@@ -18,7 +18,7 @@ In the realm of distributed systems, especially when working with messaging patt
 
 ## 1. Traceability and Observability
 
-![Pikachu Observe](https://tenor.com/view/pikachu-cute-pokemon-detective-pikachu-magnifying-glass-gif-17632001)
+![Pikachu Observe](https://tenor.com/bl83h.gif)
 
 Imagine debugging a worker issue without any logs. Sounds like a nightmare, right? Observability is your system's flashlight in the dark. It allows you to monitor and debug distributed architectures with ease.
 
@@ -115,7 +115,7 @@ A payment worker processing duplicate refund requests can use a state-based chec
 
 ## 6. Resiliency
 
-![Resilient Boxer](https://tenor.com/view/hajime-no-ippo-box-boxing-punch-jab-gif-5247336)
+![Resilient Boxer](https://tenor.com/wbeC.gif)
 
 A resilient worker is like a boxer who keeps getting up after every punch! Automatic retries and fallback mechanisms are critical to support resiliency properties.
 
