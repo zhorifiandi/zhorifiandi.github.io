@@ -18,7 +18,7 @@ In the realm of distributed systems, especially when working with messaging patt
 
 ## 1. Traceability and Observability
 
-{% include tenor.html data_postid="17632001" data_aspect_ratio="1.74863" width="50%" url='https://tenor.com/view/pikachu-cute-pokemon-detective-pikachu-magnifying-glass-gif-17632001' %}
+![Pikachu Observe](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExazdqdGtuanRsdDA2YjY1M2w1bXB4eTg2MXo1dWY3Z3puenVtY2c1biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NS7gPxeumewkWDOIxi/giphy.gif)
 
 Imagine debugging a worker issue without any logs. Sounds like a nightmare, right? Observability is your system's flashlight in the dark. It allows you to monitor and debug distributed architectures with ease.
 
@@ -115,8 +115,7 @@ A payment worker processing duplicate refund requests can use a state-based chec
 
 ## 6. Resiliency
 
-![Resilient Boxer](https://tenor.com/wbeC.gif)
-{% include tenor.html data_postid="5247336" data_aspect_ratio="1.3369" width="50%" url='https://tenor.com/view/hajime-no-ippo-box-boxing-punch-jab-gif-5247336' %}
+![Resilient Boxer](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXhwMzV4ZGhhajMzNHdpMzdsZnFwN3VvZzl4OGpua2p3OW5zdzNpdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Uni5k1O6p5RCHVIM2j/giphy.gif)
 
 A resilient worker is like a boxer who keeps getting up after every punch! Automatic retries and fallback mechanisms are critical to support resiliency properties.
 
