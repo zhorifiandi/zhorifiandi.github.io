@@ -18,6 +18,13 @@ In the realm of distributed systems, especially when working with messaging patt
 
 # Critical Properties for Reliable Messaging Workers
 
+---
+
+* toc
+{:toc}
+
+---
+
 ## 1. Traceable and Observable
 
 ![Pikachu Observe](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExazdqdGtuanRsdDA2YjY1M2w1bXB4eTg2MXo1dWY3Z3puenVtY2c1biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NS7gPxeumewkWDOIxi/giphy.gif)
@@ -159,7 +166,7 @@ Imagine a data ingestion pipeline where a worker fetches data from an unstable t
 ---
 
 
-## 4. Modular
+## 6. Modular
 
 Complex systems need simplicity at their core. Modular workers are easier to debug, maintain, and scale.
 
