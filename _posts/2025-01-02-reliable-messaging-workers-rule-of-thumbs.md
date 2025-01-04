@@ -6,9 +6,11 @@ tags:
     - software-architecture
     - backend 
 mermaid: true
-image: "/docs/2025-01-01-understanding-software-architecture-characteristics-or-non-functional-requirements-in-a-nutshell/thumbnail.png"
+image: "/docs/2025-01-02-reliable-messaging-workers-rule-of-thumbs/thumbnail.png"
 minutes_read: 7
 ---
+
+![Reliable Messaging Worker Illustration](/docs/2025-01-02-reliable-messaging-workers-rule-of-thumbs/illustration.webp)
 
 In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role. These unsung heroes handle messages from queues or brokers, ensuring tasks are executed seamlessly. But what happens when things go awry? Workers must be resilient, fault-tolerant, and reliable. This post dives into the essential properties every reliable worker should have, sprinkled with practical tips to keep your system humming. (Don’t worry, I have applied these rule of thumbs in several Xendit teams (and services), and we had almost zero issues, and make developers life happy!)
 
@@ -25,21 +27,18 @@ Imagine debugging a worker issue without any logs. Sounds like a nightmare, righ
 ### Rule of Thumb:
 
 #### Workers need end-to-end traceability to ensure smooth operations. 
-Logs and distributed tracing are essential for tracking execution and identifying issues across services.
-
-Consider a distributed payment system where transactions fail sporadically. Using tools like OpenTelemetry and setting up structured logging can help trace the issue from the API gateway to the database, pinpointing the exact failure point.
+Logs and distributed tracing are essential for tracking execution and identifying issues across services. Consider a distributed payment system where transactions fail sporadically. Using tools like [OpenTelemetry](https://opentelemetry.io/) and setting up structured logging can help trace the issue from the API gateway to the database, pinpointing the exact failure point.
 
 ---
 
 ## 2. Durable Failed Messages
 
+Not all messages are processed perfectly on the first try. That’s okay—we can retry the message consumption sometimes later when the systems is already healthy again. Just make sure we don't lose the messages yet!
+
 ![Recycle bin](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGx5NWdtbHQ1ZW8xaW1md2VhZ2g3ZXR5b3FoY3hxNzN1dGFscGVwciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKJr0rcnn2TswAU/giphy.gif)
 <p align="center">
-Just like recycle bin / trash folder in your OS, we don't really delete it permanently.
+*Just like recycle bin / trash folder in your OS, we don't really delete it permanently (yet).*
 </p>
-
-
-Not all messages are processed perfectly on the first try. That’s okay—as long as you have a plan for those pesky failures.
 
 ### Rule of Thumb:
 
@@ -59,9 +58,10 @@ sequenceDiagram
     participant TPS as 3rd Party Provider
     participant DLQ as Dead Letter Queue
 
-    Service->>Queue: Place Order
+    Service->>Queue: "Place Order (status=CREATED)"
     Queue->>Worker: Consume Message
-    Worker->>DB: - Create Order<br/>- Reduce Inventory
+    %% note right of Worker: If order status is not CREATED,<br />we should skip the message
+    Worker->>DB: Validate Order (status==CREATED)
     Worker--xTPS: Payment Request Failure
     Worker->>Queue: Give NACK<br/>(negative acknowledgement)
     Queue -->> DLQ: Forward Failed Messages
@@ -76,34 +76,16 @@ Most Message Queue already support this feature out-of-the-box:
 
 ## 3. Recoverable
 
-Failures are inevitable, but recovering gracefully sets reliable systems apart. Whether it’s a network hiccup or a broker outage, your worker shouldn’t just give up. 
+Failures are inevitable, but recovering gracefully sets reliable systems apart. Whether it’s a network hiccup in your third party API or a message broker outage, your worker shouldn’t just give up. 
 
-### Rule of Thumb:
+### Rule of Thumb
+- Replayable Message: Replaying messages should recover processes without requiring manual interventions 
+- Recoverable Consumer: Workers must automatically reconnect to the message broker after losing connection to prevent idling.
 
-#### Replaying messages should recover processes without requiring manual interventions 
+#### Replayable Message: Replaying messages should recover processes without requiring manual interventions 
 > Requiring manual interventions example: manually updating transaction statuses.
 
-Let's use the same example, but we add one more steps in error handling, which is `db rollback`. This is to avoid any phantom states of Order record.
-
-<pre class="mermaid">
-sequenceDiagram
-    participant Service as Web Service
-    participant Queue as Message Queue
-    participant Worker as Order Processing Worker
-    participant DB as Database
-    participant TPS as 3rd Party Provider
-    participant DLQ as Dead Letter Queue
-
-    Service->>Queue: Place Order
-    Queue->>Worker: Consume Message
-    Worker->>DB: Create Order and Reduce Inventory
-    Worker--xTPS: Payment Request Failure
-    Worker->>DB: Rollback DB Statement
-    Worker->>Queue: Give NACK<br/>(negative acknowledgement)
-    Queue -->> DLQ: Forward Failed Messages
-</pre>
-
-Then, in next reprocessing (within the same worker), the message will be successfully processed when 3rd Party Provider becomes healthy.
+Let's use the same example. Then, in next reprocessing (within the same worker), the message will be successfully processed when 3rd Party Provider becomes healthy. In this case, the worker will automatically update the order status to `PAYMENT_REQUESTED`
 
 <pre class="mermaid">
 sequenceDiagram
@@ -113,44 +95,23 @@ sequenceDiagram
     participant TPS as 3rd Party Provider
 
     Queue->>Worker: Consume [failed] Message
-    Note right of Worker: Order hasn't been recorded yet,<br />as we rollback in previous processing
-    Worker->>DB: Create Order and Reduce Inventory
+    Note right of Worker: Order status hasn't been changed yet
+    Worker->>DB: Validate Order (status==CREATED)
     Worker-->>TPS: Payment Request Success
-    Worker->>DB: Commit DB Statement
+    Worker->>DB: Update Order (status=PAYMENT_REQUESTED)
+    Note left of Worker: for next business processes
+    Worker-->>Queue: Publish message<br/>Order.PAYMENT_REQUESTED
     Worker->>Queue: Give ACK
 </pre>
 
 
-#### Workers must automatically reconnect to the message broker after losing connection to prevent idling.
+#### Recoverable Consumer: Workers must automatically reconnect to the message broker after losing connection to prevent idling.
 
 Some client libraries might already handle this out-of-the-box. However, note that there are also some client libraries for specific programming language, that might not support auto reconnection. (Cherry pick example: [RabbitMQ for Go which don't support auto reconnection](https://github.com/rabbitmq/amqp091-go?tab=readme-ov-file#non-goals)). Please double check your client library documentation. In such case, you might need to handle it by your self.
 
 ---
 
-## 4. Modular
-
-Complex systems need simplicity at their core. Modular workers are easier to debug, maintain, and scale.
-
-### Rule of Thumb:
-
-Workers should stick to a single responsibility principle. A worker can:
-
-- Make **one state-changing request** to another service (e.g., creating a transaction).
-- Perform **one state-changing database operation** (e.g., wrapping multiple table updates in a single DB transaction).
-- Publish **one event** to notify subsequent workers.
-- Execute as many read operations as needed to support state-changing actions.
-
-### Practical Example:
-
-A refund worker in an e-commerce system might:
-
-1. Update the payment state in the database (e.g., from "PENDING" to "REFUNDED").
-2. Notify downstream services like inventory or customer notification systems.
-3. Publish an event for further analytics.
-
----
-
-## 5. Idempotent
+## 4. Idempotent
 
 Reprocessing the same message shouldn’t create chaos. Idempotency ensures repeated tasks don’t cause inconsistent states.
 
@@ -178,7 +139,7 @@ A payment worker processing duplicate refund requests can use a state-based chec
 
 ---
 
-## 6. Resilient
+## 5. Resilient
 
 ![Resilient Boxer](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXhwMzV4ZGhhajMzNHdpMzdsZnFwN3VvZzl4OGpua2p3OW5zdzNpdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Uni5k1O6p5RCHVIM2j/giphy.gif)
 
@@ -197,6 +158,30 @@ Imagine a data ingestion pipeline where a worker fetches data from an unstable t
 
 ---
 
+
+## 4. Modular
+
+Complex systems need simplicity at their core. Modular workers are easier to debug, maintain, and scale.
+
+### Rule of Thumb:
+
+Workers should stick to a single responsibility principle. A worker can:
+
+- Make **one state-changing request** to another service (e.g., creating a transaction).
+- Perform **one state-changing database operation** (e.g., wrapping multiple table updates in a single DB transaction).
+- Publish **one event** to notify subsequent workers.
+- Execute as many read operations as needed to support state-changing actions.
+
+### Practical Example:
+
+A refund worker in an e-commerce system might:
+
+1. Update the payment state in the database (e.g., from "PENDING" to "REFUNDED").
+2. Notify downstream services like inventory or customer notification systems.
+3. Publish an event for further analytics.
+
+---
+
 # Summary
 
 | **Property** | **Description** | **Key Techniques** |
@@ -204,9 +189,9 @@ Imagine a data ingestion pipeline where a worker fetches data from an unstable t
 | Traceable and Observable | Monitor and debug system behavior across services. | Structured logging, distributed tracing (e.g., OpenTelemetry). |
 | Recoverable | Handle failures gracefully and recover automatically. | Automatic reconnections, message replay. |
 | Durable Failed Message | Ensure failed messages are not lost and can be retried. | Dead-letter queues, persistent storage for failed messages. |
-| Modular | Simplify and maintain single responsibility for each worker. | Single state-changing operation, modular architecture. |
 | Idempotent | Safely repeat tasks without inconsistent results. | ID-based tracking, state-based checks, database locks, distributed locks. |
 | Resilient | Continue functioning during partial failures. | Exponential backoff, circuit breakers. |
+| Modular | Simplify and maintain single responsibility for each worker. | Single state-changing operation, modular architecture. |
 
 # Conclusion
 
