@@ -78,13 +78,14 @@ sequenceDiagram
 
 Most Message Queue already support this feature out-of-the-box:
 - RabbitMQ - [Dead Letter Exchange](https://www.rabbitmq.com/docs/dlx)
-- Amazon SQS - [Dead Letter Queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) 
+- Amazon SQS - Message will be forwarded to dead letter queue when it has reached `maxReceiveCount` (maximum retry count). Read more: [Dead Letter Queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html)
 - Apache Kafka - It doesn't support dead letter pattern `out of the box`, as kafka works with principle of `dumb broker, smart consumers`. There are several workarounds or patterns to handle it in consumer level, see here: [Error Handling via Dead Letter Queue in Apache Kafka](https://www.kai-waehner.de/blog/2022/05/30/error-handling-via-dead-letter-queue-in-apache-kafka/)
 
 ### NACK Implementation (Negative Acknowledgement)
 `NACK` implementation can vary on different message queue/brokers.
-- In Amazon SQS, we don't really do `NACK`. But, we just don't do anything and let the message `visibility timeout` expires. If we want to introduce `delay` on the message, we need to change the `visibility timeout` using [ChangeMessageVisibility API](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html)
+
 - In RabbitMQ, we can leverage `basic.reject` or `basic.nack` methods. However, it doesn't support delay, we might need to add delay in consumer level instead. Read more: [RabbitMQ Unprocessable Deliveries](https://www.rabbitmq.com/docs/reliability#unprocessable-deliveries)
+- In Amazon SQS, there's no such thing as `NACK`. We just don't do anything and let the message `visibility timeout` expires. If we want to introduce `delay` on the message, we need to change the `visibility timeout` using [ChangeMessageVisibility API](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html)
 - In Kafka, there's no such thing as `NACK`, it's either the Consumer process the message (by perform `commit`) or you die! (Read more: [Confluent - Error handling Patterns in Kafka](https://www.confluent.io/blog/error-handling-patterns-in-kafka/))
 
 ---
