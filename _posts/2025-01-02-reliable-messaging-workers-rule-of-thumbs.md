@@ -266,7 +266,7 @@ Violating those rule of thumbs will make error handling in single worker become 
 
 Just like previous examples, the `Order Processing Worker` satisfy the rule of thumb
 - **at most one state-changing request** to another service: Calling Third Party API for Payment Request
-**at most one state-changing database operation**: Update the Order status to `PAYMENT_REQUESTED`
+- **at most one state-changing database operation**: Update the Order status to `PAYMENT_REQUESTED`
  - Publish Order message with status: `PAYMENT_REQUESTED`
  - Perform read to database to validate order status
 
