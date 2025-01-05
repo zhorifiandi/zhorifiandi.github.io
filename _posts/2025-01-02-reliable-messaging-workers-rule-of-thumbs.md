@@ -43,7 +43,7 @@ Not all messages are processed perfectly on the first try. That’s okay—we ca
 
 ![Recycle bin](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGx5NWdtbHQ1ZW8xaW1md2VhZ2g3ZXR5b3FoY3hxNzN1dGFscGVwciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKJr0rcnn2TswAU/giphy.gif)
 <p align="center">
-Just like recycle bin / trash folder in your OS, we shouldn't really delete it permanently (yet).
+Just like recycle bin / trash folder in your OS, we shouldn't really delete those failed messages permanently (yet).
 </p>
 
 ### Rule of Thumb
@@ -80,7 +80,7 @@ Most Message Queue already support this feature out-of-the-box:
 - Amazon SQS - [Dead Letter Queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) 
 - Apache Kafka - It doesn't support dead letter pattern `out of the box`, as kafka works with principle of `dumb broker, smart consumers`. There are several workarounds or patterns to handle it in consumer level, see here: [Error Handling via Dead Letter Queue in Apache Kafka](https://www.kai-waehner.de/blog/2022/05/30/error-handling-via-dead-letter-queue-in-apache-kafka/)
 
-### `NACK` Implementation (Negative Acknowledgement)
+### NACK Implementation (Negative Acknowledgement)
 `NACK` implementation can vary on different message queue/brokers.
 - In Amazon SQS, we don't really do `NACK`. But, we just don't do anything and let the message `visibility timeout` expires. If we want to introduce `delay` on the message, we need to change the `visibility timeout` using [ChangeMessageVisibility API](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html)
 - In RabbitMQ, we can leverage `basic.reject` or `basic.nack` methods. However, it doesn't support delay, we might need to add delay in consumer level instead. Read more: [RabbitMQ Unprocessable Deliveries](https://www.rabbitmq.com/docs/reliability#unprocessable-deliveries)
