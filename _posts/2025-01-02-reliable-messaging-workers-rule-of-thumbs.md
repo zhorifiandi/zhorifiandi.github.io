@@ -1,6 +1,6 @@
 ---
 title: Reliable Messaging Workers - Rule of Thumbs
-excerpt: In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role. These unsung heroes handle messages from queues or brokers, ensuring tasks are executed seamlessly. But what happens when things go awry? Workers must be resilient, fault-tolerant, and reliable. This post dives into the essential properties every reliable worker should have, sprinkled with practical tips to keep your system humming. (Don’t worry, I have applied these rule of thumbs in several Xendit teams (and services), and we had almost zero issues, and make developers life happy!)
+excerpt: In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role. These unsung heroes handle messages from queues or brokers, ensuring tasks are executed seamlessly. But what happens when things go awry? Workers must be resilient, fault-tolerant, and reliable. This post dives into the essential properties every reliable messaging worker should have, sprinkled with practical tips to keep your system reliable.
 categories: software-engineering
 tags: 
     - software-architecture
@@ -14,7 +14,7 @@ minutes_read: 7
 
 In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role. These unsung heroes handle messages from queues or brokers, ensuring tasks are executed seamlessly. But what happens when things go awry? Workers must be resilient, fault-tolerant, and reliable. 
 
-This post dives into the essential properties every reliable messaging worker should have, sprinkled with practical tips to keep your system reliable. I applied these rule of thumbs in several Xendit teams, and we had almost zero issues, and make developers life happy! (a.k.a. firefighting stuck messages/transactions)
+This post dives into the essential properties every reliable messaging worker should have, sprinkled with practical tips to keep your system reliable. I applied these rule of thumbs in several Xendit teams, and we had almost zero issues, and make developers life happy! (a.k.a. no more firefighting stuck messages/transactions manually)
 
 ---
 
@@ -32,7 +32,7 @@ Imagine debugging a worker issue without any logs. Sounds like a nightmare, righ
 
 ### Rule of Thumb
 
-#### Workers need end-to-end traceability to ensure smooth operations. 
+> Workers need end-to-end traceability to ensure smooth operations. 
 Logs and distributed tracing are essential for tracking execution and identifying issues across services. Consider a distributed payment system where transactions fail sporadically. Using tools like [OpenTelemetry](https://opentelemetry.io/) and setting up structured logging can help trace the issue from the API gateway to the database, pinpointing the exact failure point.
 
 ---
@@ -51,7 +51,7 @@ Just like recycle bin / trash folder in your OS, we shouldn't really delete it p
 - Failed messages must be persisted.
 - Failed messages should be easily retrievable for retries.
 
-### Practical Example:
+### Practical Example
 
 An order service processes orders from a queue. If an order fails due to an external API timeout (3rd party provider), persisting the failed message in a dead-letter queue allows the system to retry it later, avoiding stuck/phantom state of order.
 
@@ -73,10 +73,18 @@ sequenceDiagram
     Queue -->> DLQ: Forward Failed Messages
 </pre>
 
+### Dead Letter Queue Implementations
+
 Most Message Queue already support this feature out-of-the-box:
 - RabbitMQ - [Dead Letter Exchange](https://www.rabbitmq.com/docs/dlx)
 - Amazon SQS - [Dead Letter Queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) 
 - Apache Kafka - It doesn't support dead letter pattern `out of the box`, as kafka works with principle of `dumb broker, smart consumers`. There are several workarounds or patterns to handle it in consumer level, see here: [Error Handling via Dead Letter Queue in Apache Kafka](https://www.kai-waehner.de/blog/2022/05/30/error-handling-via-dead-letter-queue-in-apache-kafka/)
+
+### `NACK` Implementation (Negative Acknowledgement)
+`NACK` implementation can vary on different message queue/brokers.
+- In Amazon SQS, we don't really do `NACK`. But, we just don't do anything and let the message `visibility timeout` expires. If we want to introduce `delay` on the message, we need to change the `visibility timeout` using [ChangeMessageVisibility API](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html)
+- In RabbitMQ, we can leverage `basic.reject` or `basic.nack` methods. However, it doesn't support delay, we might need to add delay in consumer level instead. Read more: [RabbitMQ Unprocessable Deliveries](https://www.rabbitmq.com/docs/reliability#unprocessable-deliveries)
+- In Kafka, there's no such thing as `NACK`, it's either the Consumer process the message (by perform `commit`) or you die! (Read more: [Confluent - Error handling Patterns in Kafka](https://www.confluent.io/blog/error-handling-patterns-in-kafka/))
 
 ---
 
@@ -123,7 +131,7 @@ Reprocessing the same message shouldn’t create chaos. Idempotency ensures repe
 
 ### Rule of Thumb
 
-> Messages with the same ID should be processed without side effects. 
+> Messages shouldn't have side effects when being processed more than once.
 
 Strategies to achieve idempotency include:
 
@@ -145,7 +153,7 @@ Strategies to achieve idempotency include:
 
 Let's use the same example as previous property. Order status has been updated `PAYMENT_REQUESTED`. For some unknown reasons, the message broker/queue **redeliver** the same message to the worker. The worker will validate the order status to the database, and will only process if the status is `ACCEPTED`. In this case, the order status is `PAYMENT_REQUESTED`, so we will just skip the message.
 
-> To discuss on how possibly this can happen is very broad topic, but the scenario exists in real world (at least in my own experience). let's just focus on this particular example
+> To discuss on how possibly this can happen is very broad topic, but the scenario exists in real world (at least in my own experience). We'll let it slide for now...
 
 <pre class="mermaid">
 sequenceDiagram
@@ -173,11 +181,16 @@ A resilient worker is like a boxer who keeps getting up after every punch! Autom
 
 Workers should:
 
-- Implement exponential backoff retry mechanisms.
+- Implement retry mechanisms.
 - Use circuit breakers to prevent overwhelming downstream services during failures.
 
-#### Exponential backoff retry mechanisms
-Exponential backoff is a standard error handling strategy for network applications in which a client periodically retries a failed request with increasing delays between requests. 
+#### Retry mechanisms
+
+Retrying message consumption is the most trivial solution to any failed message consumption, when your worker's already implemented above properties: Recoverable and Idempotent.
+
+The common retry mechanism is Exponential backoff (at least for my experience), in which a client periodically retries a failed request with increasing delays between requests, hoping to give the dependencies enough buffer time to recover.
+
+Read more: [Overcoming the Retry Dilemma in Distributed Systems](https://dzone.com/articles/overcoming-the-retry-dilemma-in-distributed-systems)
 
 #### Circuit Breaker
 > The basic idea behind the circuit breaker is very simple. You wrap a protected function call in a circuit breaker object, which monitors for failures. Once the failures reach a certain threshold, the circuit breaker trips, and all further calls to the circuit breaker return with an error, without the protected call being made at all. Usually you'll also want some kind of monitor alert if the circuit breaker trips.
@@ -186,7 +199,7 @@ Read more on circuit breaker Pattern here: [Circuit Breaker by Martin Fowler](ht
 
 ### Practical Example
 
-We leverage what we already designed in previous properties, with more automated way to retry the failure. We won't forward failed messages directly to dead-letter queue, but we will do NACK (negative acknowledgment) to message broker, meaning we reject the message consumption. Only when we have reached max retry attempt, yet the message consumptions still failing, we forward the messages to dead letter queue.
+We leverage what we already designed in previous properties, with more automated way to retry the failure. We won't forward failed messages directly to dead-letter queue, but we will do `NACK` (negative acknowledgment) to message broker, meaning we reject the message consumption. Only when we have reached max retry attempt, yet the message consumptions still failing, we forward the messages to dead letter queue.
 
 <pre class="mermaid">
 sequenceDiagram
@@ -229,11 +242,6 @@ sequenceDiagram
     Worker->>Queue: Give ACK
 </pre>
 
-`NACK` implementation can vary on different message queue/brokers.
-- In Amazon SQS, we don't really do `NACK`. But, we just don't do anything and let the message `visibility timeout` expires. If we want to introduce `delay` on the message, we need to change the `visibility timeout` using [ChangeMessageVisibility API](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html)
-- In RabbitMQ, we can leverage `basic.reject` or `basic.nack` methods. However, it doesn't support delay, we might need to add delay in consumer level instead. Read more: [RabbitMQ Unprocessable Deliveries](https://www.rabbitmq.com/docs/reliability#unprocessable-deliveries)
-- In Kafka, there's no such thing as `NACK`, it's either the Consumer process the message (by perform `commit`) or you die! (Read more: [Confluent - Error handling Patterns in Kafka](https://www.confluent.io/blog/error-handling-patterns-in-kafka/))
-
 ---
 
 
@@ -243,14 +251,14 @@ Complex systems need simplicity at their core. Modular workers are easier to deb
 
 ### Rule of Thumb:
 
-Workers should stick to a single responsibility principle. This is very biased opinion, but based on my experience, a single worker should only:
+Workers should stick to a single responsibility principle. Maintainability is very biased opinion, but based on my experience with Xendit's teams, a single worker should only:
 
 - Make **at most one state-changing request** to another service (e.g., creating a transaction).
 - Perform **at most one state-changing database operation** (e.g., wrapping multiple table updates in a single DB transaction).
 - [if needed] Publish **one event** to notify subsequent workers.
 - [if needed] Execute as many read operations as needed to support state-changing actions.
 
-Violating those rule of thumbs will make error handling in single worker become messy. It's a sign to breaking down the process into separate workers.
+Violating those rule of thumbs will make error handling in single worker become messy--it's a sign to breaking down the processes into separate workers. You can leverage saga pattern in such cases, Read more on my writing: [Avoid Manual Reconciliation, Solve Stuck Systems Flow using Saga Pattern](https://zhorifiandi.github.io/software-engineering/2024/09/14/solve-stuck-systems-flow-using-saga-pattern.html)
 
 ### Practical Example
 
@@ -271,7 +279,7 @@ Just like previous examples, the `Order Processing Worker` satisfy the rule of t
 | 2 | Recoverable | Handle failures gracefully and recover automatically. | Automatic reconnections, message replay. |
 | 3 | Durable Failed Message | Ensure failed messages are not lost and can be retried. | Dead-letter queues, persistent storage for failed messages. |
 | 4 | Idempotent | Safely repeat tasks without inconsistent results. | ID-based tracking, state-based checks, database locks, distributed locks. |
-| 5 | Resilient | Continue functioning during partial failures. | Exponential backoff, circuit breakers. |
+| 5 | Resilient | Continue functioning during partial failures. | Retry Mechanism, circuit breakers. |
 | 6 | Modular | Simplify and maintain single responsibility for each worker. | Single state-changing operation, modular architecture. |
 
 # Conclusion
