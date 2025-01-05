@@ -178,31 +178,23 @@ Ensuring the system meets legislative and regulatory requirements (e.g., GDPR).
 
 Remember, Addressing architecture characteristics isn’t a one-time task! It’s an ongoing process that requires consistent maintenance. Below are some strategies and processes for maintaining these Non-Functional Requirements (NFRs) in your systems:
 
-### **1. Regular Technical Reviews**
+## 1. Regular Technical Reviews
 
 Conduct monthly or quarterly reviews to assess the performance, availability, and reliability metrics of your system. This helps identify trends and detect areas where improvements are necessary before issues escalate. You can use tools like automated monitoring dashboards and reports to evaluate MTBI, MTTR, and other metrics regularly.
 
-#### Conduct Chaos Engineering for Resilience Testing
+### Conduct Chaos Engineering for Resilience Testing
 
 Regularly test how your system behaves under failure scenarios using techniques like chaos engineering. This ensures the system can handle unexpected events and recover gracefully. Simulate failures, such as server crashes or database outages, and observe system responses to evaluate resiliency. You can find insightful list of resources on chaos engineering in here: [awesome-chaos-engineering](https://github.com/dastergon/awesome-chaos-engineering)
 
-#### Security and Compliance Audits
+### Security and Compliance Audits
 
 Perform regular penetration tests, license audits, and compliance reviews and address gaps proactively. Staying ahead of security vulnerabilities and regulatory changes minimizes risks. 
 
-### **2. Automate Wherever Possible**
-
-Automate deployments, testing, monitoring, and recovery processes to reduce toil and ensure consistency. Automation improves reliability, reduces human error, and enhances system resiliency. You can implement CI/CD pipelines, auto-scaling features, and incident recovery scripts or crons to manage these processes efficiently.
-
-### **3. Emphasize Observability**
-
-Invest in comprehensive logging, tracing, and monitoring tools to enhance system observability. Observability allows developers to detect issues quickly and understand their root causes. You can leverage tools like distributed tracing and centralized logging platforms to maintain a clear view of your system's health.
-
-### **4. Define and Follow Architecture Maintenance Guidelines**
+## 2. Define and Follow Architecture Maintenance Guidelines
 
 Create clear guidelines for maintaining each NFR, such as specific metrics and their thresholds. These guidelines ensure consistency and a shared understanding of system goals across teams. For example, define acceptable MTTR or uptime thresholds and set up alerts for when metrics deviate.
 
-### **5. Foster a Culture of Ownership**
+## 3. Foster a Culture of Ownership
 
 Encourage teams to own and improve architecture characteristics actively. Teams with ownership mindsets are more likely to identify and fix issues early. Define roles and responsibilities clearly, and provide tools and training to enable proactive monitoring and maintenance.
 

@@ -280,7 +280,7 @@ Just like previous examples, the `Order Processing Worker` satisfy the rule of t
 | 3 | Durable Failed Message | Ensure failed messages are not lost and can be retried. | Dead-letter queues, persistent storage for failed messages. |
 | 4 | Idempotent | Safely repeat tasks without inconsistent results. | ID-based tracking, state-based checks, database locks, distributed locks. |
 | 5 | Resilient | Continue functioning during partial failures. | Retry Mechanism, circuit breakers. |
-| 6 | Modular | Simplify and maintain single responsibility for each worker. | Single state-changing operation, modular architecture. |
+| 6 | Modular | Simplify and maintain single responsibility for each worker. | Single state-changing operation, saga pattern |
 
 # Conclusion
 
