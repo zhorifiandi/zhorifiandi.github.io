@@ -68,6 +68,10 @@ Resiliency is the system's ability to recover from unexpected events automatical
 
 - **Number of Manual Recovery Processes**: Tracks how often manual intervention is required to restore the system after failure.
 
+#### Conduct Chaos Engineering for Resilience Testing
+
+Regularly test how your system behaves under failure scenarios using techniques like chaos engineering. This ensures the system can handle unexpected events and recover gracefully. Simulate failures, such as server crashes or database outages, and observe system responses to evaluate resiliency. You can find insightful list of resources on chaos engineering in here: [awesome-chaos-engineering](https://github.com/dastergon/awesome-chaos-engineering)
+
 ### **4. Business Continuity**
 
 Business continuity refers to the system’s ability to recover and continue operations in the event of a disaster or critical failure. A disaster can mean a lot of things: Database down, Servers down, Cloud Provider Down, or even Third Party Down. These metrics help ensure that systems can quickly recover from major incidents and that any disruptions to service are minimal.
@@ -157,7 +161,7 @@ Testability measures how easily the system can be tested for correctness, perfor
 
 ### **1. Security**
 
-Security measures for authentication, authorization, and audit compliance.
+Security measures for authentication, authorization, and audit compliance. It's advisable to perform regular penetration tests, license audits, and compliance reviews and address gaps proactively. Staying ahead of security vulnerabilities and regulatory changes minimizes risks. 
 
 **Metrics can be used**
 
@@ -180,21 +184,15 @@ Remember, Addressing architecture characteristics isn’t a one-time task! It’
 
 ## 1. Regular Technical Reviews
 
-Conduct monthly or quarterly reviews to assess the performance, availability, and reliability metrics of your system. This helps identify trends and detect areas where improvements are necessary before issues escalate. You can use tools like automated monitoring dashboards and reports to evaluate MTBI, MTTR, and other metrics regularly.
-
-### Conduct Chaos Engineering for Resilience Testing
-
-Regularly test how your system behaves under failure scenarios using techniques like chaos engineering. This ensures the system can handle unexpected events and recover gracefully. Simulate failures, such as server crashes or database outages, and observe system responses to evaluate resiliency. You can find insightful list of resources on chaos engineering in here: [awesome-chaos-engineering](https://github.com/dastergon/awesome-chaos-engineering)
-
-### Security and Compliance Audits
-
-Perform regular penetration tests, license audits, and compliance reviews and address gaps proactively. Staying ahead of security vulnerabilities and regulatory changes minimizes risks. 
+Conduct monthly or quarterly reviews to assess the performance, availability, and reliability metrics of your system. This helps identify trends and detect areas where improvements are necessary before issues escalate. 
 
 ## 2. Define and Follow Architecture Maintenance Guidelines
 
-Create clear guidelines for maintaining each NFR, such as specific metrics and their thresholds. These guidelines ensure consistency and a shared understanding of system goals across teams. For example, define acceptable MTTR or uptime thresholds and set up alerts for when metrics deviate.
+Create clear guidelines for maintaining each NFR, such as specific metrics and their thresholds. These guidelines ensure consistency and a shared understanding of system goals across teams. 
 
-## 3. Foster a Culture of Ownership
+For example, define acceptable Uptime thresholds, set up alerts for when metrics deviate, and define SOP when that event exist.
+
+## 3. Encourage a Culture of Ownership
 
 Encourage teams to own and improve architecture characteristics actively. Teams with ownership mindsets are more likely to identify and fix issues early. Define roles and responsibilities clearly, and provide tools and training to enable proactive monitoring and maintenance.
 
