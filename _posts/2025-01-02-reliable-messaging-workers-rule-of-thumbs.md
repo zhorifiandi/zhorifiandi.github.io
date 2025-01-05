@@ -1,6 +1,6 @@
 ---
 title: Reliable Messaging Workers - Rule of Thumbs
-excerpt: In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role. These unsung heroes handle messages from queues or brokers, ensuring tasks are executed seamlessly. But what happens when things go out of order? Awkward Database states in case of third party downtime? Lossing messages in case of failure consumption? Manually updating your database records and hitting third party to recover the process? This post dives into the essential properties every reliable messaging worker should have, sprinkled with practical tips to keep your system reliable. I applied these rule of thumbs in several Xendit teams, and we had almost zero issues, and make developers life happy! (a.k.a. no more firefighting stuck messages/transactions manually)
+excerpt: In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role on asynchronous processing. These unsung heroes handle messages in background, so that web server can response or acknowledge the client immediately. But what happens when things go out of order? Awkward Database states in case of third party downtime? Lossing messages in case of failure consumption? Manually updating your database records and hitting third party to recover the process? This post dives into the essential properties every reliable messaging worker should have, sprinkled with practical tips to keep your system reliable. I applied these rule of thumbs in several Xendit teams, and we had almost zero issues, and make developers life happy! (a.k.a. no more firefighting stuck messages/transactions manually)
 
 categories: software-engineering
 tags: 
@@ -13,7 +13,7 @@ minutes_read: 7
 
 ![Reliable Messaging Worker Illustration](/docs/2025-01-02-reliable-messaging-workers-rule-of-thumbs/illustration.webp)
 
-In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role. These unsung heroes handle messages from queues or brokers, ensuring tasks are executed seamlessly. But what happens when things go out of order? Awkward Database states in case of third party downtime? Lossing messages in case of failure consumption? Manually updating your database records and hitting third party to recover the process?
+In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role on asynchronous processing. These unsung heroes handle messages in background, so that web server can response or acknowledge the client immediately. But what happens when things go out of order? Awkward Database states in case of third party downtime? Lossing messages in case of failure consumption? Manually updating your database records and hitting third party to recover the process?
 
 This post dives into the essential properties every reliable messaging worker should have, sprinkled with practical tips to keep your system reliable. I applied these rule of thumbs in several Xendit teams, and we had almost zero issues, and make developers life happy! (a.k.a. no more firefighting stuck messages/transactions manually)
 
