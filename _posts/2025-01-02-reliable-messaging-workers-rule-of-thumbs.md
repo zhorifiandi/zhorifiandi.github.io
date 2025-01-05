@@ -12,11 +12,9 @@ minutes_read: 7
 
 ![Reliable Messaging Worker Illustration](/docs/2025-01-02-reliable-messaging-workers-rule-of-thumbs/illustration.webp)
 
-In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role. These unsung heroes handle messages from queues or brokers, ensuring tasks are executed seamlessly. But what happens when things go awry? Workers must be resilient, fault-tolerant, and reliable. This post dives into the essential properties every reliable worker should have, sprinkled with practical tips to keep your system humming. (Don’t worry, I have applied these rule of thumbs in several Xendit teams (and services), and we had almost zero issues, and make developers life happy!)
+In the realm of distributed systems, especially when working with messaging patterns, workers play a crucial role. These unsung heroes handle messages from queues or brokers, ensuring tasks are executed seamlessly. But what happens when things go awry? Workers must be resilient, fault-tolerant, and reliable. 
 
----
-
-# Critical Properties for Reliable Messaging Workers
+This post dives into the essential properties every reliable messaging worker should have, sprinkled with practical tips to keep your system reliable. I applied these rule of thumbs in several Xendit teams, and we had almost zero issues, and make developers life happy! (a.k.a. firefighting stuck messages/transactions)
 
 ---
 
@@ -25,13 +23,14 @@ In the realm of distributed systems, especially when working with messaging patt
 
 ---
 
+# Critical Properties for Reliable Messaging Workers
 ## 1. Traceable and Observable
 
 ![Pikachu Observe](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExazdqdGtuanRsdDA2YjY1M2w1bXB4eTg2MXo1dWY3Z3puenVtY2c1biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NS7gPxeumewkWDOIxi/giphy.gif)
 
 Imagine debugging a worker issue without any logs. Sounds like a nightmare, right? Observability is your system's flashlight in the dark. It allows you to monitor and debug distributed architectures with ease.
 
-### Rule of Thumb:
+### Rule of Thumb
 
 #### Workers need end-to-end traceability to ensure smooth operations. 
 Logs and distributed tracing are essential for tracking execution and identifying issues across services. Consider a distributed payment system where transactions fail sporadically. Using tools like [OpenTelemetry](https://opentelemetry.io/) and setting up structured logging can help trace the issue from the API gateway to the database, pinpointing the exact failure point.
@@ -44,10 +43,10 @@ Not all messages are processed perfectly on the first try. That’s okay—we ca
 
 ![Recycle bin](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGx5NWdtbHQ1ZW8xaW1md2VhZ2g3ZXR5b3FoY3hxNzN1dGFscGVwciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKJr0rcnn2TswAU/giphy.gif)
 <p align="center">
-*Just like recycle bin / trash folder in your OS, we don't really delete it permanently (yet).*
+Just like recycle bin / trash folder in your OS, we shouldn't really delete it permanently (yet).
 </p>
 
-### Rule of Thumb:
+### Rule of Thumb
 
 - Failed messages must be persisted.
 - Failed messages should be easily retrievable for retries.
@@ -65,10 +64,10 @@ sequenceDiagram
     participant TPS as 3rd Party Provider
     participant DLQ as Dead Letter Queue
 
-    Service->>Queue: "Place Order (status=CREATED)"
+    Service->>Queue: "Place Order (by ID and status=CREATED)"
     Queue->>Worker: Consume Message
     %% note right of Worker: If order status is not CREATED,<br />we should skip the message
-    Worker->>DB: Validate Order (status==CREATED)
+    Worker->>DB: Validate Order (by ID and status==CREATED)
     Worker--xTPS: Payment Request Failure
     Worker->>Queue: Give NACK<br/>(negative acknowledgement)
     Queue -->> DLQ: Forward Failed Messages
@@ -103,7 +102,7 @@ sequenceDiagram
 
     Queue->>Worker: Consume [failed] Message
     Note right of Worker: Order status hasn't been changed yet
-    Worker->>DB: Validate Order (status==CREATED)
+    Worker->>DB: Validate Order (by ID and status==CREATED)
     Worker-->>TPS: Payment Request Success
     Worker->>DB: Update Order (status=PAYMENT_REQUESTED)
     Note left of Worker: for next business processes
@@ -122,9 +121,11 @@ Some client libraries might already handle this out-of-the-box. However, note th
 
 Reprocessing the same message shouldn’t create chaos. Idempotency ensures repeated tasks don’t cause inconsistent states.
 
-### Rule of Thumb:
+### Rule of Thumb
 
-Messages with the same ID should be processed without side effects. Strategies to achieve idempotency include:
+> Messages with the same ID should be processed without side effects. 
+
+Strategies to achieve idempotency include:
 
 | **Strategy** | **Main Idea** |
 | --- | --- |
@@ -140,9 +141,25 @@ Messages with the same ID should be processed without side effects. Strategies t
 2. Use **hash-based** solutions for non-unique messages (cautiously).
 3. Apply **DB locks** or **distributed locks** to prevent race conditions in high-concurrency scenarios.
 
-### Practical Example:
+### Practical Example: Using combination of **ID-based** and **state-based** solutions
 
-A payment worker processing duplicate refund requests can use a state-based check to skip already completed refunds, ensuring consistent behavior without overwriting previous results.
+Let's use the same example as previous property. Order status has been updated `PAYMENT_REQUESTED`. For some unknown reasons, the message broker/queue **redeliver** the same message to the worker. The worker will validate the order status to the database, and will only process if the status is `ACCEPTED`. In this case, the order status is `PAYMENT_REQUESTED`, so we will just skip the message.
+
+> To discuss on how possibly this can happen is very broad topic, but the scenario exists in real world (at least in my own experience). let's just focus on this particular example
+
+<pre class="mermaid">
+sequenceDiagram
+    participant Queue as Message Queue<br/>(or Dead Letter Queue)
+    participant Worker as Order Processing Worker
+    participant DB as Database
+
+    Queue->>Worker: Consume [duplicate] Message
+    Note right of Worker: Order status hasn't been changed yet
+    Worker->>DB: Validate Order (by ID and status==CREATED)
+    DB-->>Worker: return Order (status=PAYMENT_REQUESTED)
+    Note left of Worker: Order status is invalid,<br/>we will skip this message
+    Worker->>Queue: Give ACK
+</pre>
 
 ---
 
@@ -152,16 +169,70 @@ A payment worker processing duplicate refund requests can use a state-based chec
 
 A resilient worker is like a boxer who keeps getting up after every punch! Automatic retries and fallback mechanisms are critical to support resiliency properties.
 
-### Rule of Thumb:
+### Rule of Thumb
 
 Workers should:
 
 - Implement exponential backoff retry mechanisms.
 - Use circuit breakers to prevent overwhelming downstream services during failures.
 
-### Practical Example:
+#### Exponential backoff retry mechanisms
+Exponential backoff is a standard error handling strategy for network applications in which a client periodically retries a failed request with increasing delays between requests. 
 
-Imagine a data ingestion pipeline where a worker fetches data from an unstable third-party API. Using exponential backoff retries ensures the worker doesn’t overload the API, while circuit breakers prevent cascading failures to dependent services.
+#### Circuit Breaker
+> The basic idea behind the circuit breaker is very simple. You wrap a protected function call in a circuit breaker object, which monitors for failures. Once the failures reach a certain threshold, the circuit breaker trips, and all further calls to the circuit breaker return with an error, without the protected call being made at all. Usually you'll also want some kind of monitor alert if the circuit breaker trips.
+
+Read more on circuit breaker Pattern here: [Circuit Breaker by Martin Fowler](https://martinfowler.com/bliki/CircuitBreaker.html)
+
+### Practical Example
+
+We leverage what we already designed in previous properties, with more automated way to retry the failure. We won't forward failed messages directly to dead-letter queue, but we will do NACK (negative acknowledgment) to message broker, meaning we reject the message consumption. Only when we have reached max retry attempt, yet the message consumptions still failing, we forward the messages to dead letter queue.
+
+<pre class="mermaid">
+sequenceDiagram
+    participant Queue as Message Queue
+    participant Worker as Order Processing Worker
+    participant DB as Database
+    participant TPS as 3rd Party Provider
+
+    Queue->>Worker: Consume Message
+    %% note right of Worker: If order status is not CREATED,<br />we should skip the message
+    Worker->>DB: Validate Order (by ID and status==CREATED)
+    Worker--xTPS: Payment Request Failure
+    Worker->>Queue: Give NACK (retry_count=1)
+
+    note right of Queue: first retry attempt
+    Queue->>Worker: Consume Message <br/>(delay=1s retry_count=1)
+    %% note right of Worker: If order status is not CREATED,<br />we should skip the message
+    Worker->>DB: Validate Order (by ID and status==CREATED)
+    Worker--xTPS: Payment Request Failure
+    Worker->>Worker: [threshold reached]<br/>Circuit breaker switched to OPEN
+    Worker->>Queue: Give NACK (retry_count=1)
+
+    note right of Queue: second retry attempt
+    Queue->>Worker: Consume Message <br/>(delay=2s retry_count=1)
+    %% note right of Worker: If order status is not CREATED,<br />we should skip the message
+    Worker->>DB: Validate Order (by ID and status==CREATED)
+    Worker-xWorker: Circuit breaker status is OPEN<br/>wont call 3rd party API
+    Worker->>Queue: Give NACK (retry_count=1)
+
+    note right of Queue: ....<br/>after X retry attempt<br/>(max delay=10s)<br/>circuit breaker timeout reached
+    Queue->>Worker: Consume [failed] Message
+    Note right of Worker: Order status hasn't been changed yet
+    Worker->>DB: Validate Order (by ID and status==CREATED)
+    Worker->>Worker: Circuit breaker switched to HALF_OPEN (timeout reached)
+    Worker-->>TPS: Payment Request Success
+    Worker->>Worker: Circuit breaker switched to CLOSED
+    Worker->>DB: Update Order (status=PAYMENT_REQUESTED)
+    Note left of Worker: for next business processes
+    Worker-->>Queue: Publish message<br/>Order.PAYMENT_REQUESTED
+    Worker->>Queue: Give ACK
+</pre>
+
+`NACK` implementation can vary on different message queue/brokers.
+- In Amazon SQS, we don't really do `NACK`. But, we just don't do anything and let the message `visibility timeout` expires. If we want to introduce `delay` on the message, we need to change the `visibility timeout` using [ChangeMessageVisibility API](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html)
+- In RabbitMQ, we can leverage `basic.reject` or `basic.nack` methods. However, it doesn't support delay, we might need to add delay in consumer level instead. Read more: [RabbitMQ Unprocessable Deliveries](https://www.rabbitmq.com/docs/reliability#unprocessable-deliveries)
+- In Kafka, there's no such thing as `NACK`, it's either the Consumer process the message (by perform `commit`) or you die! (Read more: [Confluent - Error handling Patterns in Kafka](https://www.confluent.io/blog/error-handling-patterns-in-kafka/))
 
 ---
 
@@ -172,33 +243,36 @@ Complex systems need simplicity at their core. Modular workers are easier to deb
 
 ### Rule of Thumb:
 
-Workers should stick to a single responsibility principle. A worker can:
+Workers should stick to a single responsibility principle. This is very biased opinion, but based on my experience, a single worker should only:
 
-- Make **one state-changing request** to another service (e.g., creating a transaction).
-- Perform **one state-changing database operation** (e.g., wrapping multiple table updates in a single DB transaction).
-- Publish **one event** to notify subsequent workers.
-- Execute as many read operations as needed to support state-changing actions.
+- Make **at most one state-changing request** to another service (e.g., creating a transaction).
+- Perform **at most one state-changing database operation** (e.g., wrapping multiple table updates in a single DB transaction).
+- [if needed] Publish **one event** to notify subsequent workers.
+- [if needed] Execute as many read operations as needed to support state-changing actions.
 
-### Practical Example:
+Violating those rule of thumbs will make error handling in single worker become messy. It's a sign to breaking down the process into separate workers.
 
-A refund worker in an e-commerce system might:
+### Practical Example
 
-1. Update the payment state in the database (e.g., from "PENDING" to "REFUNDED").
-2. Notify downstream services like inventory or customer notification systems.
-3. Publish an event for further analytics.
+Just like previous examples, the `Order Processing Worker` satisfy the rule of thumb
+- **at most one state-changing request** to another service: Calling Third Party API for Payment Request
+**at most one state-changing database operation**: Update the Order status to `PAYMENT_REQUESTED`
+ - Publish Order message with status: `PAYMENT_REQUESTED`
+ - Perform read to database to validate order status
+
 
 ---
 
 # Summary
 
-| **Property** | **Description** | **Key Techniques** |
-| --- | --- | --- |
-| Traceable and Observable | Monitor and debug system behavior across services. | Structured logging, distributed tracing (e.g., OpenTelemetry). |
-| Recoverable | Handle failures gracefully and recover automatically. | Automatic reconnections, message replay. |
-| Durable Failed Message | Ensure failed messages are not lost and can be retried. | Dead-letter queues, persistent storage for failed messages. |
-| Idempotent | Safely repeat tasks without inconsistent results. | ID-based tracking, state-based checks, database locks, distributed locks. |
-| Resilient | Continue functioning during partial failures. | Exponential backoff, circuit breakers. |
-| Modular | Simplify and maintain single responsibility for each worker. | Single state-changing operation, modular architecture. |
+| **No** | **Property** | **Description** | **Key Techniques** |
+| --- | --- | --- | --- |
+| 1 | Traceable and Observable | Monitor and debug system behavior across services. | Structured logging, distributed tracing (e.g., OpenTelemetry). |
+| 2 | Recoverable | Handle failures gracefully and recover automatically. | Automatic reconnections, message replay. |
+| 3 | Durable Failed Message | Ensure failed messages are not lost and can be retried. | Dead-letter queues, persistent storage for failed messages. |
+| 4 | Idempotent | Safely repeat tasks without inconsistent results. | ID-based tracking, state-based checks, database locks, distributed locks. |
+| 5 | Resilient | Continue functioning during partial failures. | Exponential backoff, circuit breakers. |
+| 6 | Modular | Simplify and maintain single responsibility for each worker. | Single state-changing operation, modular architecture. |
 
 # Conclusion
 
