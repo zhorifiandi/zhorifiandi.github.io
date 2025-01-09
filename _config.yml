@@ -38,5 +38,3 @@ defaults:
       type: post
     values:
       tags: Misc
-
-paginate: 5
