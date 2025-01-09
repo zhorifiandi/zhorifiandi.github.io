@@ -32,12 +32,13 @@ This post dives into the essential properties every reliable messaging worker sh
 Imagine debugging a worker issue without any logs and traces. Sounds like a nightmare, right? 
 
 ### Rule of Thumb
+- Observable: Able to monitor the distributed systems
+- Traceable: Able to pinpoint the exact failure point.
+
 #### Observable
 Logs and Traces is your system's flashlight in the dark. It allows you to monitor and debug distributed architectures with ease.
 
 #### Traceable
-> Able to pinpoint the exact failure point.
-
 Consider a distributed payment system where transactions fail sporadically. Using tools like [OpenTelemetry](https://opentelemetry.io/) and setting up structured logging can help trace the issue from the API gateway to the database, pinpointing the exact failure point.
 
 ---
