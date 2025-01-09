@@ -65,3 +65,7 @@ p > img {
 .post-content h4 {
   font-size: 18px;
 }
+
+.tags-balloon p {
+  display: inline;
+}
