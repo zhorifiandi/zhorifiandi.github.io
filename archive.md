@@ -12,4 +12,5 @@ title: Blog Archive
   </ul>
 {% endfor %}
 
+<h2>Search by Tags </h2>
 {% include archive.html %}
