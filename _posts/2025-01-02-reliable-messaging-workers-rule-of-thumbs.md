@@ -29,12 +29,16 @@ This post dives into the essential properties every reliable messaging worker sh
 
 ![Pikachu Observe](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExazdqdGtuanRsdDA2YjY1M2w1bXB4eTg2MXo1dWY3Z3puenVtY2c1biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NS7gPxeumewkWDOIxi/giphy.gif)
 
-Imagine debugging a worker issue without any logs. Sounds like a nightmare, right? Observability is your system's flashlight in the dark. It allows you to monitor and debug distributed architectures with ease.
+Imagine debugging a worker issue without any logs and traces. Sounds like a nightmare, right? 
 
 ### Rule of Thumb
+#### Observable
+Logs and Traces is your system's flashlight in the dark. It allows you to monitor and debug distributed architectures with ease.
 
-> Workers need end-to-end traceability to ensure smooth operations. 
-Logs and distributed tracing are essential for tracking execution and identifying issues across services. Consider a distributed payment system where transactions fail sporadically. Using tools like [OpenTelemetry](https://opentelemetry.io/) and setting up structured logging can help trace the issue from the API gateway to the database, pinpointing the exact failure point.
+#### Traceable
+> Able to pinpoint the exact failure point.
+
+Consider a distributed payment system where transactions fail sporadically. Using tools like [OpenTelemetry](https://opentelemetry.io/) and setting up structured logging can help trace the issue from the API gateway to the database, pinpointing the exact failure point.
 
 ---
 
