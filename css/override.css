@@ -69,3 +69,16 @@ p > img {
 .tags-balloon p {
   display: inline;
 }
+
+.mermaid {
+  background: white;
+}
+
+.tech-stack-box a {
+  background: white;
+  display: inline-block;
+}
+
+.tech-stack-box img {
+  padding: 2px;
+}

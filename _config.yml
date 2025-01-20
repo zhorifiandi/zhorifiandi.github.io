@@ -1,5 +1,7 @@
 title: "Ari's Blog"
-author: "Ari Pratama Zhorifiandi"
+author: 
+  name: "Ari Pratama Zhorifiandi"
+  email: "zhorifiandi@gmail.com"
 description: "Mostly my personal notes on Software Engineering, Startup and other stuffs. Take it with grain of salt." # This will show up in places like twitter, linkedin, etc, if you share your sites url as a post.
 
 # Email / Social media user names used by the minima theme:
@@ -19,7 +21,18 @@ linkedin_username: "zhorifiandi"
 ######### Nothing below needs to be changed (unless you know what you're doing) #########
 #########################################################################################
 # Debug here: https://github.com/jekyll/minima/blob/master/_layouts/home.html
-theme: "minima"
+# theme: "minima"
+remote_theme: jekyll/minima
+
+minima:
+  skin: dark
+  # Email / Social media user names used by the minima theme:
+  # All of these are optional and can be removed or commented out
+  social_links:
+    - { platform: twitter, user_url: "https://twitter.com/zhorifiandi" }
+    - { platform: github, user_url: "https://github.com/zhorifiandi" }
+    - { platform: linkedin, user_url: "https://linkedin.com/in/zhorifiandi" }
+
 
 show_excerpts: true
 rss: rss
@@ -31,6 +44,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-paginate
+  - jekyll-remote-theme
 
 defaults:
   - scope:
