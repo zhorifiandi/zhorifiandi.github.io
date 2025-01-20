@@ -5,6 +5,7 @@
 {% endcapture %}
 {% assign sortedtemptags = temptags | split:' ' | sort | reverse %}
 <div class="tags-balloon">
+  Tags: 
 {% for temptag in sortedtemptags %}
   {% assign tagitems = temptag | split: '#' %}
   {% capture tagname %}{{ tagitems[1] }}{% endcapture %}

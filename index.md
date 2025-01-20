@@ -7,7 +7,7 @@
         <h3>Software Engineer and Architect from Indonesia 🇮🇩<br/>with 7+ years of experience</h3>
         <p>Currently working on Cross Border Payment and Fintech Infrastructure <a href="https://www.xendit.co/en-id/products/cross-border-payments/" target="blank">@Xendit</a> wearing multiple hats: Staff Software Engineer (IC), Software Architect, and Technical Lead, and scaled the products from 0 to 1 to 10 to 100 and so on...
         </p>
-        <p>Previously worked on Personalization and Recommendation <a href="https://www.bukalapak.com/" target="blank">@Bukalapak</a>, mixed of Backend Engineering, Cloud Engineering and Data Engineering. 
+        <p>Previously worked on Personalization and Recommendation <a href="https://www.bukalapak.com/" target="blank">@Bukalapak</a>, mixed of Backend Engineering, Cloud Engineering, and Data Engineering. 
         </p>
         <p>I studied Informatics (Computer Science) <a href="https://itb.ac.id/" target="blank">@Bandung Institute of Technology (ITB)</a></p>
     </div>
