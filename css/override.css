@@ -1,3 +1,11 @@
+a {
+  color: aquamarine
+}
+
+a:visited {
+  color: aquamarine
+}
+
 hr {
   margin-top: 30px;
   margin-bottom: 20px;

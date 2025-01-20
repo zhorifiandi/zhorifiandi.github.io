@@ -5,7 +5,7 @@
     <div style="flex: 70%;">
         <h1>Hey, It's Ari! 👋</h1>
         <h3>Software Engineer and Architect from Indonesia 🇮🇩</h3>
-        <p>I’m currently working on Cross Border Payment and Fintech Infrastructure <a href="https://www.xendit.co/en-id/products/cross-border-payments/">@Xendit</a>. Previously worked on Personalization and Recommendation <a href="https://www.bukalapak.com/">@Bukalapak</a>. I studied Informatics (Computer Science) <a href="https://itb.ac.id/">@Bandung Institute of Technology (ITB)</a></p>
+        <p>I’m currently working on Cross Border Payment and Fintech Infrastructure <a href="https://www.xendit.co/en-id/products/cross-border-payments/" target="blank">@Xendit</a>. Previously worked on Personalization and Recommendation <a href="https://www.bukalapak.com/" target="blank">@Bukalapak</a>. I studied Informatics (Computer Science) <a href="https://itb.ac.id/" target="blank">@Bandung Institute of Technology (ITB)</a></p>
     </div>
 </div>
 
